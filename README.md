@@ -20,11 +20,15 @@ Thriller, Action, Survival, Battle Royal
 ### Description:
 #### Singleplayer -
   The player has to collect keys while searching the maze and reach the exit before time runs out.
-  Winning Condition: The Player wins if he collects all the keys and reachs the exit before the countdown.
-  Losing Condition: The Player losses if he fails to reach the exit before the coutdown runs out.
+  <br>
+  <em>Winning Condition:</em> The Player wins if he collects all the keys and reachs the exit before the countdown.
+  <br>
+  <em>Losing Condition:</em> The Player losses if he fails to reach the exit before the coutdown runs out.
 #### Multiplayer -
   Four Players are spawned at different location on the map and their goal is to eliminate the other players.
-  Winning Condition: One Player remains after the other 3 are eliminated.
-  Losing Condition: When the player is eliminated.
+  <br>
+  <em>Winning Condition:</em> One Player remains after the other 3 are eliminated.
+  <br>
+  <em>Losing Condition:</em> When the player is eliminated.
   
 ### Technologies:
