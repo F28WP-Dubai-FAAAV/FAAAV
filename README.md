@@ -12,7 +12,7 @@ A Team of <em>College Students</em> developing a game in javascript.
 - Vaibhav Murari
 - Abdul Kader Nimbaherawala
 
-## Game Title:
+## Game Title: 7H3 D4RK M4Z3
 
 ### Genre:
 Thriller, Action, Survival, Battle Royal
