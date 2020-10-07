@@ -25,7 +25,7 @@ Thriller, Action, Survival, Battle Royal
   <br>
   <em>Losing Condition:</em> The Player losses if he fails to reach the exit before the coutdown runs out.
 #### Multiplayer -
-  Four Players are spawned at different location on the map and their goal is to eliminate the other players.
+  Four Players are spawned at different locations on the map and their goal is to eliminate the other players.
   <br>
   <em>Winning Condition:</em> One Player remains after the other 3 are eliminated.
   <br>
