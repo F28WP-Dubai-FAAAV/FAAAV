@@ -1,0 +1,61 @@
+:root {
+  --sprite-size: 2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+body {
+  background-color: rgb(181, 204, 146);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pixelart {
+  image-rendering: pixelated;
+}
+
+.character {
+  width: calc(60px * var(--sprite-size));
+  height: calc(60px * var(--sprite-size));
+  overflow: hidden;
+  position: relative;
+}
+
+.character-spritesheet {
+  width: calc(480px * var(--sprite-size));
+  height: calc(240px * var(--sprite-size));
+  animation: movement steps(8) infinite 1s;
+  position: absolute;
+}
+
+.character-spritesheet.down {
+  top: calc(0px * var(--sprite-size));
+}
+.character-spritesheet.left {
+  top: calc(-60px * var(--sprite-size));
+}
+.character-spritesheet.right {
+  top: calc(-120px * var(--sprite-size));
+}
+.character-spritesheet.up {
+  top: calc(-180px * var(--sprite-size));
+}
+
+@keyframes movement {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
