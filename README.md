@@ -30,5 +30,7 @@ Thriller, Action, Survival, Battle Royal
   <em>Winning Condition:</em> One Player remains after the other 3 are eliminated.
   <br>
   <em>Losing Condition:</em> When the player is eliminated.
-  
+  <br>
+  ![Game from the Player's perspective](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/game_from_players_view.PNG)
+  ![Maze used for the game](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/maze_mock_up.PNG)
 ### Technologies:
