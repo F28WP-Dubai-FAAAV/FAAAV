@@ -1,9 +1,9 @@
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const background = document.getElementById("background");
+const ctx_b = background.getContext("2d");
+const playerCanvas = document.getElementById("player");
+const ctx_p = playerCanvas.getContext("2d");
 const wallImage = document.querySelector(".wallImage");
 const playerImage = document.querySelector(".player");
-canvas.width = 800;
-canvas.height = 800;
 
 const maze1 = [
   ["tlw", "tw", "tw", "tw", "tw", "tw", "tw", "tw", "tw", "trw"],
@@ -16,19 +16,6 @@ const maze1 = [
   ["lw", "lp", "p", "p", "p", "p", "p", "p", "rp", "rw"],
   ["lw", "blp", "bp", "bp", "bp", "bp", "bp", "bp", "brp", "rw"],
   ["blw", "bw", "bw", "bw", "bw", "bw", "bw", "bw", "bw", "brw"],
-];
-
-const maze2 = [
-  ["tlw", "tw", "tw", "tw", "tw", "tw", "tw", "tw", "tw", "tw", "tw", "tw", "trw"],
-  ["lw", "tlp", "tp", "tp", "tp", "tp", "tp", "tp", "tp", "tp", "tp", "trp", "rw"],
-  ["lw", "lp", "p", "p", "p", "p", "p", "p", "p", "p", "p", "rp", "rw"],
-  ["lw", "lp", "p", "p", "p", "p", "p", "p", "p", "p", "p", "rp", "rw"],
-  ["lw", "lp", "p", "p", "p", "p", "p", "p", "p", "p", "p", "rp", "rw"],
-  ["lw", "lp", "p", "p", "p", "p", "p", "p", "p", "p", "p", "rp", "rw"],
-  ["lw", "lp", "p", "p", "p", "p", "p", "p", "p", "p", "p", "rp", "rw"],
-  ["lw", "lp", "p", "p", "p", "p", "p", "p", "p", "p", "p", "rp", "rw"],
-  ["lw", "blp", "bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp", "brp", "rw"],
-  ["blw", "bw", "bw", "bw", "bw", "bw", "bw", "bw", "bw", "bw", "bw", "bw", "brw"],
 ];
 
 const wall = {
@@ -49,8 +36,8 @@ const player = {
   sy: playerTile.down,
   swidth: 64,
   sheight: 31,
-  x: canvas.width / 2,
-  y: canvas.height / 2,
+  x: playerCanvas.width / 2,
+  y: playerCanvas.height / 2,
   width: 120,
   height: 60,
   framex: 3,
@@ -68,31 +55,31 @@ function drawMaze(img, sx, sy, swidth, sheight, x, y, width, height, maze) {
           break;
         }
       }
-      x = indexj * maze[0].length*(canvas.width/100);
-      y = indexi * maze.length*(canvas.height/100);
-      ctx.drawImage(img, sx, sy, swidth, sheight, x, y, width, height);
+      x = indexj * maze[0].length*(background.width/100);
+      y = indexi * maze.length*(background.height/100);
+      ctx_b.drawImage(img, sx, sy, swidth, sheight, x, y, width, height);
     });
   });
 
-  ctx.drawImage(img, sx, sy, swidth, sheight, x, y, width, height);
+  ctx_b.drawImage(img, sx, sy, swidth, sheight, x, y, width, height);
 }
 
 let cutCircle = function (x, y, radius) {
-  ctx.globalCompositeOperation = 'destination-in'
+  ctx_b.globalCompositeOperation = 'destination-in'
   let innerCircle = radius-150;
   let outerCircle = radius-50;
-  let grd = ctx.createRadialGradient(x, y, innerCircle, x, y, outerCircle);
+  let grd = ctx_b.createRadialGradient(x, y, innerCircle, x, y, outerCircle);
   grd.addColorStop(0, "black");
   grd.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = grd;
-  ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI * 2, true);
-  ctx.closePath();
-  ctx.fill();
+  ctx_b.fillStyle = grd;
+  ctx_b.beginPath();
+  ctx_b.arc(x, y, radius, 0, Math.PI * 2, true);
+  ctx_b.closePath();
+  ctx_b.fill();
 };
 
 function drawPlayer(img, sx, sy, swidth, sheight, x, y, width, height){
-  ctx.drawImage(img, sx, sy, swidth, sheight, x-width/2, y-height/2, width, height);
+  ctx_p.drawImage(img, sx, sy, swidth, sheight, x-width/2, y-height/2, width, height);
 }
 
 const draw = () => {
@@ -108,6 +95,7 @@ const draw = () => {
     wall.height,
     maze1
   );
+  
   drawPlayer(
     player.img,
     player.sx,
@@ -120,6 +108,62 @@ const draw = () => {
     player.height
   );
 };
+
+function collisionDetection(){
+  if(player.x < wall.width+player.swidth-30){
+    player.x = wall.width+player.swidth-30;
+  }
+  else if(player.x > playerCanvas.width-(wall.width+player.swidth-30)){
+    player.x = playerCanvas.width-(wall.width+player.swidth-30);
+  }
+  else if(player.y < wall.height+player.sheight-30){
+    player.y = wall.height+player.sheight-30;
+  }
+  else if(player.y > playerCanvas.height-(wall.height+player.sheight+8)){
+    player.y = playerCanvas.height-(wall.height+player.sheight+8);
+  }
+}
+
+let isShooting = false;
+function shoot(){
+  counter = 4;
+  player.sx = player.swidth * counter;
+  let interval = setInterval(()=>{
+    if(counter == 13){
+      isShooting =  false;
+      clearInterval(interval);
+    }
+    player.sx = (player.sx + player.swidth) % (player.swidth * 12);
+    counter++;
+  }, 50)
+}
+
+// Code from Frank's Laboratory
+let fps, fpsInterval, startTime, now, then, elapsed;
+
+function startAnimate(fps){
+  fpsInterval = 1000/fps
+  then = Date.now()
+  startTime = then
+  update()
+}
+
+function update(){
+  requestAnimationFrame(update)
+  now = Date.now()
+  elapsed = now - then
+  if(elapsed > fpsInterval){
+    then = now - (elapsed % fpsInterval)
+    ctx_b.globalCompositeOperation = 'source-over'
+    ctx_p.clearRect(0, 0, playerCanvas.width, playerCanvas.height);
+    collisionDetection();
+    draw();
+    cutCircle(player.x, player.y, 300);
+  }
+}
+
+startAnimate(20)
+
 
 function keyHandlerDown(e){
   const key = e.key;
@@ -161,58 +205,3 @@ function keyHandlerUp(e){
 
 document.addEventListener('keydown', keyHandlerDown)
 document.addEventListener('keyup', keyHandlerUp)
-
-function collisionDetection(){
-  if(player.x < wall.width+player.swidth-30){
-    player.x = wall.width+player.swidth-30;
-  }
-  else if(player.x > canvas.width-(wall.width+player.swidth-30)){
-    player.x = canvas.width-(wall.width+player.swidth-30);
-  }
-  else if(player.y < wall.height+player.sheight-30){
-    player.y = wall.height+player.sheight-30;
-  }
-  else if(player.y > canvas.height-(wall.height+player.sheight+8)){
-    player.y = canvas.height-(wall.height+player.sheight+8);
-  }
-}
-
-let isShooting = false;
-function shoot(){
-  counter = 4;
-  player.sx = player.swidth * counter;
-  let interval = setInterval(()=>{
-    if(counter == 13){
-      isShooting =  false;
-      clearInterval(interval);
-    }
-    player.sx = (player.sx + player.swidth) % (player.swidth * 12);
-    counter++;
-  }, 50)
-}
-
-let fps, fpsInterval, startTime, now, then, elapsed;
-
-function startAnimate(fps){
-  fpsInterval = 1000/fps
-  then = Date.now()
-  startTime = then
-  update()
-}
-
-function update(){
-  requestAnimationFrame(update)
-  now = Date.now()
-  elapsed = now - then
-  if(elapsed > fpsInterval){
-    then = now - (elapsed % fpsInterval)
-    ctx.globalCompositeOperation = 'source-over'
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    collisionDetection();
-    draw();
-    cutCircle(player.x, player.y, 300);
-  }
-}
-
-startAnimate(15)
-// Code from Frank's Laboratory
