@@ -9,7 +9,11 @@
   <body>
     <img src="./Dungeon_Tileset.png" alt="" class="wallImage pixelart" />
     <img src="./MaleHero.png" alt="player" class="player pixelart">
-    <canvas id="canvas"></canvas>
+    <div class="canvasHolder">
+      <canvas id="background" height="800px" width="800px"></canvas>
+      <canvas id="player" height="800px" width="800px"></canvas>
+      <!-- <canvas id="others"></canvas> -->
+    </div>
   </body>
   <script src="./tilesheetSlicer.js"></script>
   <script src="./mazeGenerator.js"></script>
