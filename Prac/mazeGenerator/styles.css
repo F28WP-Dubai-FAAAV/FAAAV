@@ -19,8 +19,14 @@ img {
   display: none;
 }
 
-#canvas {
-  background-color: #000;
+.canvasHolder {
+  position: relative;
+}
+
+#player {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .pixelart {
