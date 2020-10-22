@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  background-color: #000;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#game-container {
+  height: 800px;
+  width: 800px;
+  position: relative;
+}
+
+.pixelart {
+  image-rendering: auto;
+}
+.background {
+  background: rgba(104, 33, 0, 0.822);
+  height: 800px;
+  width: 800px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  /* transform: scale(2); */
+}
+
+.player-spriteSheet {
+  background: url(./MaleHero.png);
+  height: 129px;
+  width: 192px;
+  position: absolute;
+}
+
+.player {
+  position: absolute;
+  height: 32px;
+  width: 64px;
+  overflow: hidden;
+  /* transform: scale(2); */
+}
+
+.tile {
+  height: 80px;
+  width: 80px;
+}
+
+.player-spriteSheet.move {
+  animation: movement steps(3) infinite 0.5s;
+}
+.player-spriteSheet.down {
+  top: calc(0px);
+}
+.player-spriteSheet.left {
+  top: calc(-32px);
+}
+.player-spriteSheet.right {
+  top: calc(-64px);
+}
+.player-spriteSheet.up {
+  top: calc(-96px);
+}
+
+@keyframes movement {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
