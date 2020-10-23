@@ -19,7 +19,7 @@ const maze1 = [
     ['040','041','042','043','042','043','042','043','044','045'],
 ]
 
-maze1.forEach((tileRow, rowIndex) =>{
+maze1.forEach((tileRow) =>{
     tileRow.forEach(tileColumn=>{
         let img = `tile${tileColumn}.png`;
         const imgTile = document.createElement('div');
@@ -97,6 +97,7 @@ const movement = (e) => {
             playerSheet.classList.add('move');
         }
     }
+
     switch (keyCode) {
       case 38:
         startMove(keys[38])
@@ -111,6 +112,7 @@ const movement = (e) => {
         startMove(keys[39])
         break;
     }
+
     camera.style.top = (topPos-(camera.offsetHeight/2)+player.offsetHeight/2) + "px";
     camera.style.left = (leftPos-(camera.offsetWidth/2)+player.offsetWidth/2) + "px";
     background.style.clipPath = 'none';
