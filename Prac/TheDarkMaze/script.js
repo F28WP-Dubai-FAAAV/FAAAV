@@ -1,6 +1,7 @@
 const background = document.querySelector(".background");
 const player = document.querySelector(".player");
 const playerSheet = document.querySelector(".player-spriteSheet");
+const camera = document.querySelector('.camera');
 const playerHeight = player.offsetHeight;
 const playerWidth = player.offsetWidth;
 const backgroundHeight = background.clientHeight - playerHeight;
@@ -40,6 +41,10 @@ let topPos = player.offsetTop,
   leftPos = player.offsetLeft;
 const tile = document.querySelector('.tile');
 
+camera.style.top = `calc(50% - ${camera.offsetHeight/2}px)`;
+camera.style.left = `calc(50% - ${camera.offsetWidth/2}px)`;
+background.style.clipPath = `circle(20% at ${leftPos+player.offsetWidth/2}px ${topPos+player.offsetHeight/2}px)`;
+
 const movement = (e) => {
     const key = e.key;
     if(key==="ArrowUp" || key==="ArrowDown" || key==="ArrowLeft"|| key==="ArrowRight"){
@@ -78,6 +83,11 @@ const movement = (e) => {
         }
         break;
     }
+    camera.style.top = (topPos-(camera.offsetHeight/2)+player.offsetHeight/2) + "px";
+    camera.style.left = (leftPos-(camera.offsetWidth/2)+player.offsetWidth/2) + "px";
+    background.style.clipPath = 'none';
+    background.style.clipPath = `circle(20% at ${leftPos+player.offsetWidth/2}px ${topPos+player.offsetHeight/2}px)`;
+
   };
   
   function stopMovement(e){
