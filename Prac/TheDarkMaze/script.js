@@ -26,9 +26,6 @@ maze1.forEach((tileRow, rowIndex) =>{
         imgTile.classList.add("tile", "pixelart");
         imgTile.style.background = `url(./Dungeon_SpriteSheet_Split/${img}) no-repeat center`;
         imgTile.style.backgroundSize = "cover"; 
-        if(rowIndex === maze1.length-1){
-            imgTile.style.zIndex = 100;
-        }
         background.appendChild(imgTile);
     })
 })
@@ -45,42 +42,70 @@ camera.style.top = `calc(50% - ${camera.offsetHeight/2}px)`;
 camera.style.left = `calc(50% - ${camera.offsetWidth/2}px)`;
 background.style.clipPath = `circle(20% at ${leftPos+player.offsetWidth/2}px ${topPos+player.offsetHeight/2}px)`;
 
-const movement = (e) => {
-    const key = e.key;
-    if(key==="ArrowUp" || key==="ArrowDown" || key==="ArrowLeft"|| key==="ArrowRight"){
-        playerSheet.classList.remove(playerSheet.classList[2]);
-        if(!playerSheet.classList.contains("move")){
-            playerSheet.classList.add('move');
-        }
-    }
-    switch (key) {
-      case "ArrowUp":
-        playerSheet.classList.add("up");
+const keys = {
+  38: 'up',
+  37: 'left',
+  39: 'right',
+  40: 'down'
+}
+
+const keysHeld = []
+
+const startMove = (key) => {
+  if(!keysHeld.includes(key)){
+    keysHeld.unshift(key)
+  }
+  if(keysHeld){
+    switch(keysHeld[0]){
+      case 'up':
         if (topPos > tile.offsetHeight) {
           topPos -= step;
           player.style.top = topPos + "px";
         }
         break;
-      case "ArrowDown":
-        playerSheet.classList.add("down");
-        if (topPos < backgroundHeight-tile.offsetHeight+5) {
+      case 'down':
+        if (topPos < backgroundHeight-tile.offsetHeight-10) {
           topPos += step;
           player.style.top = topPos + "px";
         }
         break;
-      case "ArrowLeft":
-        playerSheet.classList.add("left");
+      case 'left':
         if (leftPos > tile.offsetWidth-15) {
           leftPos -= step;
           player.style.left = leftPos + "px";
         }
         break;
-      case "ArrowRight":
-        playerSheet.classList.add("right");
+      case 'right':
         if (leftPos < backgroundWidth-tile.offsetWidth+15) {
           leftPos += step;
           player.style.left = leftPos + "px";
         }
+        break;
+    }
+  }
+}
+
+const movement = (e) => {
+    const keyCode = e.keyCode;
+    if(keyCode in keys){
+      console.log(playerSheet.classList)
+        playerSheet.classList.remove(playerSheet.classList[2]);
+        if(!playerSheet.classList.contains("move")){
+            playerSheet.classList.add('move');
+        }
+    }
+    switch (keyCode) {
+      case 38:
+        startMove(keys[38])
+        break;
+      case 40:
+        startMove(keys[40])
+        break;
+      case 37:
+        startMove(keys[37])
+        break;
+      case 39:
+        startMove(keys[39])
         break;
     }
     camera.style.top = (topPos-(camera.offsetHeight/2)+player.offsetHeight/2) + "px";
@@ -90,9 +115,12 @@ const movement = (e) => {
 
   };
   
-  function stopMovement(e){
-    const key = e.key;
-    if(key==="ArrowUp" || key==="ArrowDown" || key==="ArrowLeft"|| key==="ArrowRight"){
+  const stopMovement= (e) => {
+    const keyCode = e.keyCode;
+    if(keysHeld.includes(keys[keyCode])){
+      keysHeld.splice(keysHeld.indexOf(keys[keyCode]),1)
+    }
+    if(keysHeld.length <= 0){
         if(playerSheet.classList.contains("move")){
             playerSheet.classList.remove('move');
         }
