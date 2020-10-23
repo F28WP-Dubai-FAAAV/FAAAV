@@ -58,24 +58,28 @@ const startMove = (key) => {
   if(keysHeld){
     switch(keysHeld[0]){
       case 'up':
+        playerSheet.classList.add("up");
         if (topPos > tile.offsetHeight) {
           topPos -= step;
           player.style.top = topPos + "px";
         }
         break;
       case 'down':
+        playerSheet.classList.add("down");
         if (topPos < backgroundHeight-tile.offsetHeight-10) {
           topPos += step;
           player.style.top = topPos + "px";
         }
         break;
       case 'left':
+        playerSheet.classList.add("left");
         if (leftPos > tile.offsetWidth-15) {
           leftPos -= step;
           player.style.left = leftPos + "px";
         }
         break;
       case 'right':
+        playerSheet.classList.add("right");
         if (leftPos < backgroundWidth-tile.offsetWidth+15) {
           leftPos += step;
           player.style.left = leftPos + "px";
@@ -88,7 +92,6 @@ const startMove = (key) => {
 const movement = (e) => {
     const keyCode = e.keyCode;
     if(keyCode in keys){
-      console.log(playerSheet.classList)
         playerSheet.classList.remove(playerSheet.classList[2]);
         if(!playerSheet.classList.contains("move")){
             playerSheet.classList.add('move');
