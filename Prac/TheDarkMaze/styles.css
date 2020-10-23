@@ -24,8 +24,8 @@ body {
 .pixelart {
   image-rendering: auto;
 }
+
 .background {
-  background: rgba(104, 33, 0, 0.822);
   height: 800px;
   width: 800px;
   position: relative;
@@ -53,8 +53,54 @@ body {
   position: absolute;
   height: 32px;
   width: 64px;
+}
+
+.player-sprite {
+  height: 32px;
+  width: 64px;
   overflow: hidden;
   transform: scale(1.5);
+}
+
+.player-info {
+  width: 70px;
+  display: flex;
+}
+
+.hearts-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  top: 10px;
+  left: calc(50% - 26px);
+}
+
+.heart {
+  width: 15px;
+  height: 13px;
+  overflow: hidden;
+}
+
+.heart-sprite {
+  background: url(./hearts.png);
+  width: 105px;
+  height: 13px;
+  position: relative;
+}
+
+.bullets-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-info::before {
+  content: "AbdulKader";
+  position: absolute;
+  font-size: 0.7rem;
+  color: #fff;
+  font-family: sans-serif;
+  top: -15px;
+  left: calc(50% - 28.5px);
 }
 
 .tile {
@@ -62,8 +108,12 @@ body {
   width: 80px;
 }
 
+.heart-sprite.lost {
+  animation: animate steps(7) 1s forwards;
+}
+
 .player-spriteSheet.move {
-  animation: movement steps(3) infinite 0.5s;
+  animation: animate steps(3) infinite 0.5s;
 }
 .player-spriteSheet.down {
   top: calc(0px);
@@ -78,7 +128,7 @@ body {
   top: calc(-96px);
 }
 
-@keyframes movement {
+@keyframes animate {
   from {
     transform: translateX(0);
   }
