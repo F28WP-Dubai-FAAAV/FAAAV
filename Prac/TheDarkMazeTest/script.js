@@ -40,7 +40,7 @@ const tile = document.querySelector('.tile');
 
 camera.style.top = `calc(50% - ${camera.offsetHeight/2}px)`;
 camera.style.left = `calc(50% - ${camera.offsetWidth/2}px)`;
-background.style.clipPath = `circle(20% at ${leftPos+player.offsetWidth/2}px ${topPos+player.offsetHeight/2}px)`;
+background.style.clipPath = `circle(24% at ${leftPos+player.offsetWidth/2}px ${topPos+player.offsetHeight/2}px)`;
 
 const keys = {
   38: 'up',
@@ -116,7 +116,7 @@ const movement = (e) => {
     camera.style.top = (topPos-(camera.offsetHeight/2)+player.offsetHeight/2) + "px";
     camera.style.left = (leftPos-(camera.offsetWidth/2)+player.offsetWidth/2) + "px";
     background.style.clipPath = 'none';
-    background.style.clipPath = `circle(20% at ${leftPos+player.offsetWidth/2}px ${topPos+player.offsetHeight/2}px)`;
+    background.style.clipPath = `circle(24% at ${leftPos+player.offsetWidth/2}px ${topPos+player.offsetHeight/2}px)`;
 
   };
   
