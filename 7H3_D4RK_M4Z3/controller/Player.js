@@ -4,7 +4,7 @@ class Player{
     step = 3;
     constructor(username, num){
         this.username = username;
-        this.sprite = `../Assets/players/male_${num}.png`;
+        this.sprite = `../Assets/players/hero_${num}.png`;
     }
 }
 
