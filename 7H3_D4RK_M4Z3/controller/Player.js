@@ -6,21 +6,6 @@ class Player{
     constructor(username){
         this.username = username;
     }
-
-    setPosition(topPos, leftPos){
-        this.topPos = topPos;
-        this.leftPos = leftPos;
-    }
-    getPosition(){
-        return (this.topPos, this.leftPos);
-    }
-
-    setStep(step){
-        this.step = step;
-    }
-
-    getStep(){
-        return this.step;
-    }
-
 }
+
+export default Player;
