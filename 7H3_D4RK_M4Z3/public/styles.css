@@ -1,0 +1,115 @@
+:root {
+  --sprite-size: 5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@font-face {
+  font-family: "TheEndFont";
+  src: url("../Assets/fonts/TheEndFont.ttf");
+}
+
+@font-face {
+  font-family: "WorldConflict";
+  src: url("../Assets/fonts/WorldConflict.ttf");
+}
+
+.game-title h1 {
+  font-family: "TheEndFont";
+  font-size: 5rem;
+}
+
+.game-title p {
+  font-family: "WorldConflict";
+  color: #ff0000;
+  font-size: 2rem;
+}
+
+.sprite {
+  width: calc(64px * var(--sprite-size));
+  height: calc(32px * var(--sprite-size));
+  overflow: hidden;
+  position: relative;
+  margin: 1rem;
+}
+
+.pixelart {
+  image-rendering: auto;
+}
+
+.sprite .sheet {
+  position: absolute;
+  width: calc(192px * var(--sprite-size));
+  height: calc(128px * var(--sprite-size));
+  animation: movement steps(3) infinite 0.5s;
+  top: calc(-62px * var(--sprite-size));
+  left: 0;
+}
+
+.btn {
+  font-size: 1.5rem;
+  font-family: "TheEndFont";
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn.signup {
+  color: #000;
+  background: #ebebeb;
+  border: 1px solid #ebebeb;
+}
+
+.btn.signup:hover {
+  color: #fff;
+  background: #000;
+  border: 1px solid #fff;
+}
+
+.btn.login {
+  color: #ff0000;
+  background: #000;
+  border: 1px solid #fff;
+}
+
+.btn.login:hover {
+  color: #000;
+  background: #ac0000;
+  border: 1px solid #ac0000;
+}
+
+@keyframes movement {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
