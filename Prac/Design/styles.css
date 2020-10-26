@@ -1,0 +1,128 @@
+:root {
+  --sprite-size: 3;
+  --sprite-frames: 12;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "TheEndFont";
+  src: url(./TheEndFont\(RF\).ttf);
+}
+
+@font-face {
+  font-family: "WorldConflict";
+  src: url(./World\ Conflict\ .ttf);
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-title {
+  color: #fff;
+  text-align: center;
+}
+
+.game-title h1 {
+  font-family: "TheEndFont";
+  font-size: 5rem;
+}
+
+.game-title p {
+  font-family: "WorldConflict";
+  color: red;
+  font-size: 1.5rem;
+}
+
+.sprite {
+  width: calc(128px * var(--sprite-size));
+  height: calc(64px * var(--sprite-size));
+  overflow: hidden;
+  position: relative;
+  background-image: url(wall.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.adventurer-spritesheet {
+  position: absolute;
+  width: calc(1536px * var(--sprite-size));
+  height: calc(512px * var(--sprite-size));
+  animation: movement steps(var(--sprite-frames)) infinite 2s;
+}
+
+.adventurer-spritesheet.right {
+  top: calc(-128px * var(--sprite-size));
+}
+
+.pixelart {
+  image-rendering: pixelated;
+}
+
+.button-container {
+  color: #000;
+  font-family: "TheEndFont";
+  margin: 2rem 0 0;
+}
+
+.btn {
+  background-color: #fff;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.single-player {
+  border: solid 2px #fff;
+}
+
+.multi-player {
+  color: red;
+  background-color: #000;
+  border: solid 2px #fff;
+}
+
+.single-player:hover {
+  color: #fff;
+  background-color: #333;
+  border: solid 2px #333;
+}
+
+.multi-player:hover {
+  color: #000;
+  background-color: #df1616;
+  border: solid 2px #df1616;
+}
+
+@keyframes movement {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
