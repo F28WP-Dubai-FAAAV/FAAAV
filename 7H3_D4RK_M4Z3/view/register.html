@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../public/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="forms">
+            <div class="switch-container">
+                <div class="switch login-switch active">Login</div>
+                <div class="switch signup-switch">Sign Up</div>
+            </div>
+            <div class="form-container">
+                <form class="form login-form">
+                    <div class="wrapper">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" placeholder=" " required>
+                    </div>
+                    <div class="wrapper">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder=" " required>
+                    </div>
+                    <a href="#" class="forget">Forgot Password?</a>
+                    <button class="btn form-btn login-button">Login</button>
+                </form>
+
+                <form class="form signup-form hide">
+                    <div class="wrapper">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" required>
+                    </div>
+                    <div class="wrapper">
+                        <label for="email">Username</label>
+                        <input type="text" name="username" id="username" required>
+                    </div>
+                    <div class="wrapper">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" required>
+                    </div>
+                    <div class="wrapper">
+                        <label for="repassword">Confirm Password</label>
+                        <input type="password" name="repassword" id="repassword" required>
+                    </div>
+                    <button class="btn form-btn signup-button">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../controller/register.js"></script>
+</html>
