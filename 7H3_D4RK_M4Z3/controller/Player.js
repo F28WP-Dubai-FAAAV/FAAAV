@@ -29,6 +29,7 @@ function Player(username, num) {
         //creating a new div
         const playerSprite = document.createElement("div")
         playerSprite.classList.add("player-sprite")
+        playerSprite.setAttribute("moving", "false")
         //adding the new div to playerDiv div
         playerDiv.appendChild(playerSprite)
 
@@ -43,6 +44,7 @@ function Player(username, num) {
 
     //this method will move the player on the screen
     this.animate = ()=>{
+        // top and left are center position of the player div
         let top = this.topPos - this.playerDiv.offsetHeight/2
         let left = this.leftPos - this.playerDiv.offsetWidth/2
         this.playerDiv.style.transform = `translate3d(${left}px, ${top}px, 0)`
