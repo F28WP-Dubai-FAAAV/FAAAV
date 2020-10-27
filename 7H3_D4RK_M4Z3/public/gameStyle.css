@@ -37,3 +37,20 @@ body {
   overflow: hidden;
   position: absolute;
 }
+
+.sheet {
+  position: absolute;
+}
+
+.sheet[facing="down"] {
+  top: 0px;
+}
+.sheet[facing="left"] {
+  top: -32px;
+}
+.sheet[facing="right"] {
+  top: -64px;
+}
+.sheet[facing="up"] {
+  top: -96px;
+}
