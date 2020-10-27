@@ -1,32 +1,28 @@
-class Player{
+function Player(username, num) {
+    // Add username and the sprite used for the player
+    this.playerNum = num;
+    this.username = username;
+    this.sprite = `../Assets/players/hero_${num}.png`;
     // Position of the player on the screen
-    topPos = 0;
-    leftPos = 0;
+    this.topPos = 0;
+    this.leftPos = 0;
     // Movement speed of the player
-    speed = 3;
+    this.speed = 3;
     // Hearts the players has
-    hearts = 3;
+    this.hearts = 3;
     //Checks if the player has a bullet
-    hasBullet = false;
+    this.hasBullet = false;
     // playerDiv
-    playerDiv = null;
-
-    constructor(username, num){
-        // Add username and the sprite used for the player
-        this.playerNum = num;
-        this.username = username;
-        this.sprite = `../Assets/players/hero_${num}.png`;
-    }
+    this.playerDiv = null;
 
     //This method will create a player and display it on the screen
-    createPlayer(maze, top, left){
+    this.createPlayer = (maze, top, left)=>{
         this.topPos = top;
         this.leftPos = left;
         //creating a new div
         const playerDiv = document.createElement('div')
         playerDiv.classList.add("player", "num"+ this.playerNum)
-        playerDiv.style.top = top+"px";
-        playerDiv.style.left = left+"px";
+        playerDiv.style.transform = `translate3d(${this.leftPos}px, ${this.topPos}px, 0)`
         //adding the new div to maze div
         maze.appendChild(playerDiv);
         this.playerDiv = playerDiv;
@@ -39,15 +35,15 @@ class Player{
         //creating a new img
         const playerSheet = document.createElement("img")
         playerSheet.classList.add("sheet", "pixelart")
+        playerSheet.setAttribute("facing", "down")
         playerSheet.src = this.sprite;
         //adding the new img to playerSprite div
         playerSprite.appendChild(playerSheet)
     }
 
     //this method will move the player on the screen
-    animate(){
-        this.playerDiv.style.top = this.topPos + "px";
-        this.playerDiv.style.left = this.leftPos + "px";
+    this.animate = ()=>{
+        this.playerDiv.style.transform = `translate3d(${this.leftPos}px, ${this.topPos}px, 0)`
     }
 }
 
