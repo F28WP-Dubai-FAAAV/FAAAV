@@ -1,51 +1,51 @@
-//To avoid typos
-const directions = {
-    up: 'up',
-    down: 'down',
-    left: 'left',
-    right: 'right'
-}
 
-// As the keys pressed will be in keycodes.
-//Converting them to words
-const keys = {
-    38: directions.up,
-    37: directions.left,
-    39: directions.right,
-    40: directions.down
-}
+class Movement{
+    //To avoid typos
+    directions = {
+        up: 'up',
+        down: 'down',
+        left: 'left',
+        right: 'right'
+    }
 
-const keysHeld = []
+    // As the keys pressed will be in keycodes.
+    //Converting them to words
+    keys = {
+        38: this.directions.up,
+        37: this.directions.left,
+        39: this.directions.right,
+        40: this.directions.down
+    }
 
-//To handle the movement 
-function movementHandler(e, isKeyDown){
-    const keyCode = e.keyCode;
-    if(keyCode in keys){
-        if(isKeyDown){
-            startMovement(keys[keyCode])
-        }
-        else{
-            stopMovement(keys[keyCode])   
+    // array to hold the keys which are being pressed by the user
+    keysHeld = []
+
+    //To handle the movement 
+    movementHandler(e, isKeyDown){
+        const keyCode = e.keyCode;
+        if(keyCode in this.keys){
+            if(isKeyDown){
+                e.preventDefault();
+                this.startMovement(this.keys[keyCode])
+            }
+            else{
+                this.stopMovement(this.keys[keyCode])   
+            }
         }
     }
-}
 
-function startMovement(key){
-    //TODO : add movement to the player according to the key pressed
-    // Use translate3d
-    if(!keysHeld.includes(key)){
-        keysHeld.unshift(key)
+    startMovement(key){
+        //TODO : add movement to the player according to the key pressed
+        // Use translate3d
+        //TODO : start the player moving animation
+        if(!this.keysHeld.includes(key)){
+            this.keysHeld.unshift(key)
+        }
+    }
+
+    stopMovement(key){
+        //TODO : stop the player moving animation
+        this.keysHeld.splice(this.keysHeld.indexOf(key),1)
     }
 }
-
-function stopMovement(key){
-    //TODO : remove the key pressed from the keysHeld array
-    keysHeld.splice(keysHeld.indexOf(key),1)
-}
-
-document.addEventListener("keydown",(e)=>{
-    movementHandler(e,true)
-});
-document.addEventListener("keyup", (e)=>{
-    movementHandler(e,false)
-})
+export default Movement;
