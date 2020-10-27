@@ -203,6 +203,11 @@ body {
   margin-top: 2rem;
 }
 
+.form-btn:hover {
+  background: red;
+  color: #000;
+}
+
 .hide {
   display: none;
 }
