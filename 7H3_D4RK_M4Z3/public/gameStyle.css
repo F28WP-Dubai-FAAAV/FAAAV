@@ -38,6 +38,11 @@ body {
   position: absolute;
 }
 
+.player-sprite {
+  width: 192px;
+  height: 129px;
+}
+
 .sheet {
   position: absolute;
 }
@@ -53,4 +58,17 @@ body {
 }
 .sheet[facing="up"] {
   top: -96px;
+}
+
+.player-sprite[moving="true"] {
+  animation: movement steps(3) infinite 0.5s;
+}
+
+@keyframes movement {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
