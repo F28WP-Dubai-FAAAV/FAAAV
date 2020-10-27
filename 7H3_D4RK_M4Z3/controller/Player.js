@@ -8,6 +8,8 @@ class Player{
     hearts = 3;
     //Checks if the player has a bullet
     hasBullet = false;
+    // playerDiv
+    playerDiv = null;
 
     constructor(username, num){
         // Add username and the sprite used for the player
@@ -16,11 +18,10 @@ class Player{
         this.sprite = `../Assets/players/hero_${num}.png`;
     }
 
-    createPlayer(top, left){
+    //This method will create a player and display it on the screen
+    createPlayer(maze, top, left){
         this.topPos = top;
         this.leftPos = left;
-        //Selecting the div with class maze
-        const maze = document.querySelector(".maze")
         //creating a new div
         const playerDiv = document.createElement('div')
         playerDiv.classList.add("player", "num"+ this.playerNum)
@@ -28,7 +29,7 @@ class Player{
         playerDiv.style.left = left+"px";
         //adding the new div to maze div
         maze.appendChild(playerDiv);
-
+        this.playerDiv = playerDiv;
         //creating a new div
         const playerSprite = document.createElement("div")
         playerSprite.classList.add("player-sprite")
@@ -41,6 +42,12 @@ class Player{
         playerSheet.src = this.sprite;
         //adding the new img to playerSprite div
         playerSprite.appendChild(playerSheet)
+    }
+
+    //this method will move the player on the screen
+    animate(){
+        this.playerDiv.style.top = this.topPos + "px";
+        this.playerDiv.style.left = this.leftPos + "px";
     }
 }
 
