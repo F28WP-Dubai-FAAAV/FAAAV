@@ -43,7 +43,9 @@ function Player(username, num) {
 
     //this method will move the player on the screen
     this.animate = ()=>{
-        this.playerDiv.style.transform = `translate3d(${this.leftPos}px, ${this.topPos}px, 0)`
+        let top = this.topPos - this.playerDiv.offsetHeight/2
+        let left = this.leftPos - this.playerDiv.offsetWidth/2
+        this.playerDiv.style.transform = `translate3d(${left}px, ${top}px, 0)`
     }
 }
 
