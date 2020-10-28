@@ -25,9 +25,9 @@ Thriller, Action, Survival, Battle Royal
   <br>
   <em>Losing Condition:</em> When the player is eliminated.
   <br>
-  ![Main Game Page](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/Main-game_page.PNG)
+  ![Main Game Page](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/Main-game_page.JPG)
   ![Login Page](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/login.JPG)
-  ![Sign Up Page](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/signup.JPG)
+  ![Sign Up Page](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/Sign-Up.JPG)
   ![Game from the Player's perspective](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/game_from_players_view.PNG)
   ![Maze used for the game](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/maze_mock_up.PNG)
 ### Technologies:
