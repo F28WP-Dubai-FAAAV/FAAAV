@@ -15,34 +15,48 @@
             </div>
             <div class="form-container">
                 <form class="form login-form">
-                    <div class="wrapper">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" id="username" placeholder=" " required>
+                    <div class="floating">
+                        <input id="username" type="text" class="floating__input" name="username" placeholder=" " />
+                        <label for="input__username" class="floating__label" data-content="Username">
+                            <span class="hidden--visually">Email</span>
+                        </label>
                     </div>
-                    <div class="wrapper">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" placeholder=" " required>
+                    
+                    <div class="floating">
+                        <input id="password" type="password" class="floating__input" name="password" placeholder=" " />
+                        <label for="input__password" class="floating__label" data-content="Password">
+                            <span class="hidden--visually">Password</span>
+                        </label>
                     </div>
+                    
                     <a href="#" class="forget">Forgot Password?</a>
                     <button class="btn form-btn login-button">Login</button>
                 </form>
 
                 <form class="form signup-form hide">
-                    <div class="wrapper">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" id="email" required>
+                    <div class="floating">
+                        <input id="email" type="text" class="floating__input" name="email" placeholder=" " />
+                        <label for="input__email" class="floating__label" data-content="Email">
+                            <span class="hidden--visually">Email</span>
+                        </label>
                     </div>
-                    <div class="wrapper">
-                        <label for="email">Username</label>
-                        <input type="text" name="username" id="username" required>
+                    <div class="floating">
+                        <input id="username" type="text" class="floating__input" name="username" placeholder=" " />
+                        <label for="input__username" class="floating__label" data-content="Username">
+                            <span class="hidden--visually">Username</span>
+                        </label>
                     </div>
-                    <div class="wrapper">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" required>
+                    <div class="floating">
+                        <input id="password" type="password" class="floating__input" name="password" placeholder=" " />
+                        <label for="input__password" class="floating__label" data-content="Password">
+                            <span class="hidden--visually">Password</span>
+                        </label>
                     </div>
-                    <div class="wrapper">
-                        <label for="repassword">Confirm Password</label>
-                        <input type="password" name="repassword" id="repassword" required>
+                    <div class="floating">
+                        <input id="password" type="password" class="floating__input" name="confirm_password" placeholder=" " />
+                        <label for="input__password" class="floating__label" data-content="Confirm Password">
+                            <span class="hidden--visually">Confirm Password</span>
+                        </label>
                     </div>
                     <button class="btn form-btn signup-button">Sign Up</button>
                 </form>
