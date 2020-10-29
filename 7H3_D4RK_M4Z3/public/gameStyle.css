@@ -23,8 +23,37 @@ body {
 
 .maze {
   position: relative;
-  background: rgb(224, 6, 6);
-  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  width: 800px;
+  height: 800px;
+}
+
+.maze-layer-one {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 800px;
+  height: 800px;
+  z-index: 1;
+}
+
+.maze-layer-two {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 800px;
+  height: 800px;
+  z-index: 2;
+}
+
+.tile {
+  width: 80px;
+  height: 80px;
 }
 
 .pixelart {
@@ -36,6 +65,7 @@ body {
   height: 32px;
   overflow: hidden;
   position: absolute;
+  z-index: 50;
 }
 
 .player-sprite {
