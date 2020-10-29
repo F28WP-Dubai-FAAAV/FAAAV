@@ -44,7 +44,7 @@
 }
 
 .floating {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   transition: background-color 0.2s ease;
   text-align: left;
   border-radius: 15px;
