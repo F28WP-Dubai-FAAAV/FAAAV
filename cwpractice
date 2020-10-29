@@ -1,0 +1,26 @@
+MongoDB shell version v4.4.1
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("dcf4db49-5e9b-4bab-a787-dfbca4060a74") }
+MongoDB server version: 4.4.1
+---
+The server generated these startup warnings when booting:
+        2020-10-28T17:52:01.476+04:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+MongoDB Enterprise > use mongotest
+switched to db mongotest
+MongoDB Enterprise > db.Players.insertOne({Username:"player1", Email_id:"p1@gmail.com", Password:"pass123", Online:"yes"})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5f9acadabae5da07517ccd90")
+}
+MongoDB Enterprise > db.Players.find()
+{ "_id" : ObjectId("5f9acadabae5da07517ccd90"), "Username" : "player1", "Email_id" : "p1@gmail.com", "Password" : "pass123", "Online" : "yes" }
+MongoDB Enterprise > db.Players.find().pretty()
+{
+        "_id" : ObjectId("5f9acadabae5da07517ccd90"),
+        "Username" : "player1",
+        "Email_id" : "p1@gmail.com",
+        "Password" : "pass123",
+        "Online" : "yes"
+}
+MongoDB Enterprise >
