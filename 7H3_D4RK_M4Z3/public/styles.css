@@ -1,0 +1,291 @@
+:root {
+  --sprite-size: 2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@font-face {
+  font-family: "TheEndFont";
+  src: url("../Assets/fonts/TheEndFont.ttf");
+}
+
+@font-face {
+  font-family: "WorldConflict";
+  src: url("../Assets/fonts/WorldConflict.ttf");
+}
+
+.game-title h1 {
+  font-family: "TheEndFont";
+  font-size: 5rem;
+}
+
+.game-title p {
+  font-family: "WorldConflict";
+  color: #ff0000;
+  font-size: 2rem;
+}
+
+.sprite {
+  width: calc(192px * var(--sprite-size));
+  height: calc(96px * var(--sprite-size));
+  overflow: hidden;
+  position: relative;
+  margin: 1rem;
+  background: radial-gradient(circle, rgb(221, 44, 44), #000 50%);
+}
+
+.pixelart {
+  image-rendering: auto;
+}
+
+.sprite .sheet {
+  position: absolute;
+  width: calc(576px * var(--sprite-size));
+  height: calc(384 * var(--sprite-size));
+  animation: movement steps(3) infinite 0.5s;
+  top: calc(-192px * var(--sprite-size));
+  left: 0;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  font-size: 1.5rem;
+  font-family: "TheEndFont";
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  text-decoration: none;
+}
+
+.btn.signup {
+  color: #000;
+  background: #ebebeb;
+  border: 1px solid #ebebeb;
+}
+
+.btn.signup:hover {
+  color: #fff;
+  background: #000;
+  border: 1px solid #fff;
+}
+
+.btn.login {
+  color: #ff0000;
+  background: #000;
+  border: 1px solid #fff;
+}
+
+.btn.login:hover {
+  color: #000;
+  background: #ac0000;
+  border: 1px solid #ac0000;
+}
+
+@keyframes movement {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Register Screen */
+.forms {
+  width: 400px;
+}
+
+.switch-container {
+  font-family: "TheEndFont";
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.switch {
+  flex: 1;
+  padding: 1rem;
+  cursor: pointer;
+  background: #777;
+  color: #000;
+}
+
+.login-switch.active {
+  background: #111;
+  color: #ff0000;
+}
+
+.signup-switch.active {
+  background: #1b1b1b;
+  color: #ff0000;
+}
+
+.form-container {
+  background: rgb(29, 29, 29);
+  height: 480px;
+  font-family: sans-serif;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  margin: auto;
+  height: 100%;
+}
+
+.floating {
+    margin-bottom: 2rem;
+    transition: background-color 0.2s ease;
+    text-align: left;
+    border-radius: 15px;
+}
+
+.floating:hover,
+.floating:focus-within {
+  background-color: #777;
+}
+
+.floating__input {
+  padding: 1.8rem 1rem 0.6rem;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  background-color: #2e2e2e;
+  color: #fff;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+}
+
+.floating__input::placeholder {
+  color:#fff;
+}
+
+.floating__label {
+  display: block;
+  position: relative;
+  max-height: 0;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.floating__label::before {
+  color: #b6b6b6;
+  content: attr(data-content);
+  display: inline-block;
+  filter: blur(0);
+  backface-visibility: hidden;
+  transform-origin: left top;
+  transition: transform 0.2s ease;
+  left: 1rem;
+  position: relative;
+}
+
+.floating__label::after {
+  bottom: 1rem;
+  content: "";
+  height: 0.1rem;
+  position: absolute;
+  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 180ms cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+  opacity: 0;
+  left: 0;
+  top: 100%;
+  margin-top: -0.1rem;
+  transform: scale3d(0, 1, 1);
+  width: 100%;
+}
+
+.floating__input:focus + .floating__label::after {
+  transform: scale3d(1, 1, 1);
+  opacity: 1;
+}
+
+.floating__input:placeholder-shown + .floating__label::before {
+  transform: translate3d(0, -2.2rem, 0) scale3d(1, 1, 1);
+}
+
+.floating__label::before,
+.floating__input:focus + .floating__label::before {
+  transform: translate3d(0, -3.12rem, 0) scale3d(0.82, 0.82, 1);
+}
+
+.floating__input:focus + .floating__label::before {
+  color: #ff0000;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.forget {
+  color: red;
+  font-size: 0.8rem;
+  text-align: left;
+  margin-top: 0.2rem;
+  text-decoration: none;
+}
+
+.form-btn {
+  padding: 0.7rem 1.5rem;
+  font-size: 1.5rem;
+  border: none;
+  background: #000;
+  color: red;
+  margin-top: 2rem;
+}
+
+.form-btn:hover {
+  background: red;
+  color: #000;
+}
+
+.hide {
+  display: none;
+}
