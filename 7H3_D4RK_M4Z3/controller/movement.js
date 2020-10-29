@@ -52,6 +52,7 @@ function Movement(player){
             // Starts the player movinng animation
             this.player.playerDiv.querySelector(".player-sprite").setAttribute("moving", "true")
             // Changes the topPos and leftPos according to the key pressed
+            this.collision()
             switch(topKeyHeld){
                 case 'up':
                     this.player.topPos -= this.player.speed;
@@ -79,6 +80,27 @@ function Movement(player){
             this.player.playerDiv.querySelector(".player-sprite").setAttribute("moving", "false");
         }
     };
+
+    this.collision = () => {
+        let top = this.player.topPos
+        let left = this.player.leftPos
+        if(top < 80){
+            top = 80
+        }
+        else if(top > 800-80-20){
+            top = 800-80-20
+        }
+        else if(left < 80 + 20){
+            left = 80 + 20
+        }
+        else if(left > 800-80-20){
+            left = 800-80-20
+        }
+
+        this.player.topPos = top
+        this.player.leftPos = left
+    }
+
 }
 
 export default Movement;
