@@ -1,4 +1,7 @@
 function MazeGenerator(maze){
+    // maze1 is an object with properties LayerOne and LayerTwo
+    // LayerOne is the base of the maze with the outer walls and paths
+    // layerTwo is the placement of the walls of the maze
     this.maze1 = {
         LayerOne: [
             ['000','001','002','003','004','001','002','003','004','005'],
@@ -31,6 +34,8 @@ function MazeGenerator(maze){
         ]
     }
 
+    // This method takes the values from maze1 object 
+    // creates div for each value and add the image corresponding to that value
     this.createMaze = (mazeMap)=>{
         const mazeLayerOne = document.createElement("div")
         mazeLayerOne.classList.add("maze-layer-one" )
@@ -57,12 +62,7 @@ function MazeGenerator(maze){
             let img = `wall${orientation}.png`;
             const imgTile = document.createElement('div');
             imgTile.classList.add("wall", "pixelart");
-            if(orientation === 'h'){
-                imgTile.classList.add('horizontal')
-            }
-            else{
-                imgTile.classList.add('vertical')
-            }
+            imgTile.classList.add(orientation === 'h'?'horizontal':'vertical')
             imgTile.style.background = `url(../Assets/Dungeon_SpriteSheet_Split/${img}) no-repeat center`;
             imgTile.style.backgroundSize = "cover";
             imgTile.style.left = `${x}px`
