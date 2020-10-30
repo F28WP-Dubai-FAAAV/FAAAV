@@ -1,5 +1,6 @@
-function Movement(player){
+function Movement(player, mazeMap){
     this.player = player;
+    this.mazeMap = mazeMap;
     //To avoid typos
     this.directions = {
         up: 'up',
@@ -82,21 +83,52 @@ function Movement(player){
     };
 
     this.collision = () => {
+        // variables to store the players x and y coordinates
         let top = this.player.topPos
         let left = this.player.leftPos
-        if(top < 80){
-            top = 80
+        // Some default values
+        let playerWidth = 15
+        let tileSize = 80
+        let mazeSize = 800
+
+        // Check collisions with the outer perimeter of the maze
+        if(top < tileSize + playerWidth){
+            top = tileSize + playerWidth
         }
-        else if(top > 800-80-20){
-            top = 800-80-20
+        else if(top > mazeSize-tileSize-playerWidth){
+            top = mazeSize-tileSize-playerWidth
         }
-        else if(left < 80 + 20){
-            left = 80 + 20
+        else if(left < tileSize + playerWidth){
+            left = tileSize + playerWidth
         }
-        else if(left > 800-80-20){
-            left = 800-80-20
+        else if(left > mazeSize-tileSize-playerWidth){
+            left = mazeSize-tileSize-playerWidth
         }
 
+        // Checks collision with each wall in the maze
+        this.mazeMap.LayerTwo.forEach(wall=>{
+            const [x,y,o] = wall;
+            let w = 35
+            let h = 80
+            if(o === 'h'){
+                w = 80
+                h = 35
+            }
+            if(left > x-playerWidth && left < x+w && top>y && top<y+h){
+                left = x-playerWidth;
+            }
+            else if(left < x+w+playerWidth && left > x-playerWidth&& top>y && top<y+h){
+                left = x+w+playerWidth;
+            }
+            else if(top > y-playerWidth && top < y+h && left>x && left<x+w){
+                top = y-playerWidth;
+            }
+            else if(top < y+h+playerWidth && top > y-playerWidth && left>x && left<x+w){
+                top = y+h+playerWidth;
+            }
+        })
+
+        // assigns the value of top and left to the player x and y coordinates
         this.player.topPos = top
         this.player.leftPos = left
     }
