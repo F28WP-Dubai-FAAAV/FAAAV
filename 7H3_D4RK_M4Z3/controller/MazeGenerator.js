@@ -49,7 +49,7 @@ function MazeGenerator(maze){
                 let img = `tile${tileColumn}.png`;
                 const imgTile = document.createElement('div');
                 imgTile.classList.add("tile", "pixelart");
-                imgTile.style.background = `url(../Assets/Dungeon_SpriteSheet_Split/${img}) no-repeat center`;
+                imgTile.style.background = `url(../Assets/Dungeon/LayerOne/${img}) no-repeat center`;
                 imgTile.style.backgroundSize = "cover";
                 imgTile.style.top = `${tileSize*row}px`
                 imgTile.style.left = `${tileSize*column}px`
@@ -63,7 +63,7 @@ function MazeGenerator(maze){
             const imgTile = document.createElement('div');
             imgTile.classList.add("wall", "pixelart");
             imgTile.classList.add(orientation === 'h'?'horizontal':'vertical')
-            imgTile.style.background = `url(../Assets/Dungeon_SpriteSheet_Split/${img}) no-repeat center`;
+            imgTile.style.background = `url(../Assets/Dungeon/LayerTwo/${img}) no-repeat center`;
             imgTile.style.backgroundSize = "cover";
             imgTile.style.left = `${x}px`
             imgTile.style.top = `${y}px`
