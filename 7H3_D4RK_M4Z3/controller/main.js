@@ -1,9 +1,10 @@
 import Player from './Player.js'
 import Movement from './Movement.js'
 import MazeGenerator from "./MazeGenerator.js"
+
 //Selecting the div with class maze
 const maze = document.querySelector(".maze")
-
+// creating and rendering the maze on the screen
 const mazeGen = new MazeGenerator(maze);
 mazeGen.createMaze(mazeGen.maze1);
 
@@ -12,10 +13,10 @@ const players = []
 //Pushing new players in the array
 players.push(new Player('AbdulKader',players.length+1))
 //creating the player and displaying it on the screen
-players[0].createPlayer(maze,400,400);
+players[0].createPlayer(maze,120,120);
 
 //controller to control a players movement
-const controller = new Movement(players[0])
+const controller = new Movement(players[0], mazeGen.maze1)
 
 // Creating a way to render on the screen
 let fps, fpsInterval, startTime, now, then, elapsed;
