@@ -1,4 +1,4 @@
-function Movement(player, mazeMap){
+function GameController(player, mazeMap){
     this.player = player;
     this.mazeMap = mazeMap;
     //To avoid typos
@@ -135,4 +135,4 @@ function Movement(player, mazeMap){
 
 }
 
-export default Movement;
+export default GameController;
