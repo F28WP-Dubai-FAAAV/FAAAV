@@ -112,6 +112,30 @@ body {
   animation: movement steps(3) infinite 0.5s;
 }
 
+.player-sprite[shoot="true"] {
+  width: 768px;
+  height: 129px;
+  animation: movement steps(12) infinite 0.5s;
+}
+
+.bullet {
+  position: absolute;
+  z-index: 45;
+  width: 20px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.bullet-sheet {
+  position: absolute;
+  width: 100px;
+  height: 12px;
+}
+
+.bullet-sheet[moving="true"] {
+  animation: movement steps(5) infinite 0.5s;
+}
+
 @keyframes movement {
   from {
     transform: translateX(0);

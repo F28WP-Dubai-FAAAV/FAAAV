@@ -1,12 +1,16 @@
 import Player from './Player.js'
 import GameController from './GameController.js'
 import MazeGenerator from "./MazeGenerator.js"
+import Bullet from "./Bullet.js"
 
 //Selecting the div with class maze
 const maze = document.querySelector(".maze")
 // creating and rendering the maze on the screen
 const mazeGen = new MazeGenerator(maze);
 mazeGen.createMaze(mazeGen.maze1);
+
+// variable to store the main players username
+const username = "AbdulKader"
 
 // array to store all the players
 const players = []
@@ -15,9 +19,14 @@ players.push(new Player('AbdulKader',players.length+1))
 //creating the player and displaying it on the screen
 players[0].createPlayer(maze,120,120);
 
-//controller to control a players movement
-const controller = new GameController(players[0], mazeGen.maze1)
+// array to store all the bullets
+const bullets = [new Bullet(players,mazeGen.maze1), new Bullet(players,mazeGen.maze1), new Bullet(players,mazeGen.maze1), new Bullet(players,mazeGen.maze1)]
+bullets.forEach(bullet=>{
+  bullet.createBullet(maze);
+})
 
+//controller to control a players movement
+const controller = new GameController([players.filter(player=> player.username === username)[0], mazeGen.maze1, bullets])
 // Creating a way to render on the screen
 let fps, fpsInterval, startTime, now, then, elapsed;
 // initializing the fps the game will run at
@@ -38,7 +47,14 @@ function update(){
   elapsed = now - then
   if(elapsed > fpsInterval){
     then = now - (elapsed % fpsInterval)
-    players[0].animate()
+    // animate all the players and bullets
+    players.forEach(player=>{
+      player.animate()
+    })
+
+    bullets.forEach(bullet=>{
+      bullet.animate()
+    })
   }
 }
 

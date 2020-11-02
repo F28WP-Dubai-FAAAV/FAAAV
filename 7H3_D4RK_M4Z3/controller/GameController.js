@@ -1,17 +1,20 @@
-function GameController(player, mazeMap){
+function GameController([player, mazeMap, bullets]){
     this.player = player;
     this.mazeMap = mazeMap;
+    this.bullets = bullets;
     //To avoid typos
     this.directions = {
         up: 'up',
         down: 'down',
         left: 'left',
-        right: 'right'
+        right: 'right',
+        space: 'space'
     };
 
     // As the keys pressed will be in keycodes.
     //Converting them to words
     this.keys = {
+        32: this.directions.space,
         38: this.directions.up,
         37: this.directions.left,
         39: this.directions.right,
@@ -48,10 +51,7 @@ function GameController(player, mazeMap){
 
         if(topKeyHeld){
             const sheet = this.player.playerDiv.querySelector(".sheet");
-            // Changes the direction the sprite is facing
-            sheet.setAttribute("facing", topKeyHeld)
-            // Starts the player movinng animation
-            this.player.playerDiv.querySelector(".player-sprite").setAttribute("moving", "true")
+
             // Changes the topPos and leftPos according to the key pressed
             this.collision()
             switch(topKeyHeld){
@@ -68,6 +68,21 @@ function GameController(player, mazeMap){
                     this.player.leftPos += this.player.speed;
                     break;
             }
+
+            // checks if the space is pressed
+            if(topKeyHeld === 'space'){
+                // starts player's shooting  animation if he has a bullet
+                if(this.player.hasBullet){
+                    this.player.playerDiv.querySelector(".player-sprite").setAttribute("shoot", "true")
+                    this.player.shootBullet()
+                }
+            }
+            else{
+                // Changes the direction the sprite is facing
+                sheet.setAttribute("facing", topKeyHeld)    
+                // Starts the player moving animation
+                this.player.playerDiv.querySelector(".player-sprite").setAttribute("moving", "true")
+            }
         }
 
     };
@@ -77,8 +92,9 @@ function GameController(player, mazeMap){
         this.keysHeld.splice(this.keysHeld.indexOf(key),1);
         //Checks if no keys are pressed
         if(this.keysHeld.length <= 0){
-            // stops the player movinng animation
+            // stops the player moving and shooting animation
             this.player.playerDiv.querySelector(".player-sprite").setAttribute("moving", "false");
+            this.player.playerDiv.querySelector(".player-sprite").setAttribute("shoot", "false");
         }
     };
 
@@ -127,7 +143,16 @@ function GameController(player, mazeMap){
                 top = y+h+playerWidth;
             }
         })
-
+        // Checks if any bullets is collected by the player
+        this.bullets.forEach((bullet,index)=>{
+            const moving = bullet.bullet.querySelector('.bullet-sheet').getAttribute('moving')
+            // adds bullet to the players bullet array
+            if(bullet.touchingPlayer(bullet.leftPos, bullet.topPos) && !this.player.hasBullet && moving === 'false'){
+                this.player.playerBullet.push(bullet)
+                this.player.hasBullet = true
+                this.bullets.splice(index,1)
+            }
+        })
         // assigns the value of top and left to the player x and y coordinates
         this.player.topPos = top
         this.player.leftPos = left
