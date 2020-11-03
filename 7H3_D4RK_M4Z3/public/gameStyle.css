@@ -107,7 +107,7 @@ body {
 .player-sprite[shoot="true"] {
   width: 768px;
   height: 129px;
-  animation: movement steps(12) infinite 0.5s;
+  animation: movement steps(12) 0.2s;
 }
 
 .bullet {
