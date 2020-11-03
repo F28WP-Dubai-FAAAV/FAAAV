@@ -19,24 +19,68 @@ function Player(username, num) {
     // playerDiv
     this.playerDiv = null;
 
+    // Creates a HUD with hearts and bullet info
+    this.createHUD = () => {
+        // creates a div to stores elements in HUD
+        this.HUD = document.createElement('div')
+        this.HUD.classList.add('hud')
+        document.querySelector("#canvas").appendChild(this.HUD)
+
+        // creates a div to stores all the hearts
+        const heartContainer = document.createElement('div')
+        heartContainer.classList.add('hearts-container')
+        this.HUD.appendChild(heartContainer)
+
+        // creates hearts sprite equal to the number of hearts the player has
+        for(let i = 0; i<this.hearts; i++){
+            const heart = document.createElement('div')
+            heart.classList.add('heart')
+            heartContainer.appendChild(heart)
+
+            const sprite = document.createElement('div')
+            sprite.classList.add('heart-sprite')
+            sprite.setAttribute("fill", "full")
+            sprite.setAttribute("num", i+1)
+            sprite.style.background = 'url(../Assets/Hearts/hearts.png)'
+            heart.appendChild(sprite)
+        }
+
+        const bulletContainer = document.createElement('div')
+        bulletContainer.classList.add('bullet-container')
+        this.HUD.appendChild(bulletContainer)
+
+        const bullet = document.createElement('div')
+        bullet.classList.add("bullet")
+        bullet.setAttribute("hasBullet", "false")
+        bulletContainer.appendChild(bullet)
+
+        const sheet = document.createElement('div')
+        sheet.classList.add("bullet-sheet")
+        sheet.setAttribute("moving", "true")
+        sheet.style.background = `url(../Assets/Bullet/fireball.png)`
+        bullet.appendChild(sheet)
+
+    }
+
     //This method will create a player and display it on the screen
     this.createPlayer = (maze, left, top)=>{
         this.topPos = top;
         this.leftPos = left;
+        // creates the HUD for the player
+        this.createHUD()
         //creating a new div
-        const playerDiv = document.createElement('div')
-        playerDiv.classList.add("player", "num"+ this.playerNum)
-        playerDiv.style.transform = `translate3d(${this.leftPos}px, ${this.topPos}px, 0)`
+        this.playerDiv = document.createElement('div')
+        this.playerDiv.classList.add("player", "num"+ this.playerNum)
+        this.playerDiv.style.transform = `translate3d(${this.leftPos}px, ${this.topPos}px, 0)`
         //adding the new div to maze div
-        maze.appendChild(playerDiv);
-        this.playerDiv = playerDiv;
+        maze.appendChild(this.playerDiv);
         //creating a new div
         const playerSprite = document.createElement("div")
         playerSprite.classList.add("player-sprite")
         playerSprite.setAttribute("moving", "false")
         playerSprite.setAttribute("shoot", "false")
         //adding the new div to playerDiv div
-        playerDiv.appendChild(playerSprite)
+        this.playerDiv.appendChild(playerSprite)
 
         //creating a new img
         const playerSheet = document.createElement("img")
@@ -53,7 +97,12 @@ function Player(username, num) {
 
     // players health decreases when hit by bullet
     this.decreaseHealth = ()=>{
+        // animating the loss of heart
+        const hearts = this.HUD.querySelectorAll('.heart-sprite')
+        Array.from(hearts).filter(heart=> heart.getAttribute("num") === String(this.hearts))[0].setAttribute("fill", "empty")
+        // decrease the hearts the player has
         this.hearts--;
+        // destroy player if hearts is 0
         if(this.hearts <= 0){
             this.destroyPlayer();
         }
@@ -67,6 +116,7 @@ function Player(username, num) {
     // if the player shoots the bullet
     this.shootBullet = () => {
         this.hasBullet = false;
+        this.HUD.querySelector(".bullet").setAttribute('hasBullet', 'false')
         // starts the bullet animation
         this.playerBullet[0].bullet.querySelector(".bullet-sheet").setAttribute("moving", true)
         // stores the bullet and the players facing direction in new variables
@@ -97,6 +147,11 @@ function Player(username, num) {
                 this.usedBullet.move(this.shootFacing)
             }
         }
+
+        if(this.hasBullet){
+            this.HUD.querySelector(".bullet").setAttribute('hasBullet', 'true')
+        }
+
         this.camera.moveCamera([this.leftPos, this.topPos])
     }
 }

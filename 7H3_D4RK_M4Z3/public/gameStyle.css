@@ -16,7 +16,13 @@ body {
   align-items: center;
 }
 
+@font-face {
+  font-family: "TheEndFont";
+  src: url("../Assets/fonts/TheEndFont.ttf");
+}
+
 #canvas {
+  position: relative;
   width: 800px;
   height: 800px;
 }
@@ -70,6 +76,70 @@ body {
   image-rendering: auto;
 }
 
+.hud {
+  top: 0;
+  left: 80px;
+  position: absolute;
+  z-index: 100;
+}
+
+.hearts-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  transform: scale(3);
+}
+
+.hearts-container::before {
+  content: "HEALTH : ";
+  color: #fff;
+  font-family: "TheEndFont";
+  font-size: 0.5rem;
+}
+
+.heart {
+  width: 15px;
+  height: 13px;
+  overflow: hidden;
+  margin: 0 0.1rem;
+}
+
+.heart-sprite {
+  width: 105px;
+  height: 13px;
+  position: relative;
+}
+
+.heart-sprite[fill="empty"] {
+  animation: animate steps(7) 1s forwards;
+}
+
+.bullet-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  transform: scale(3);
+  margin-top: 1.5rem;
+}
+
+.bullet-container::before {
+  content: "BULLET : ";
+  color: #fff;
+  font-family: "TheEndFont";
+  font-size: 0.5rem;
+}
+
+.bullet-container .bullet {
+  left: 35px;
+  display: none;
+}
+
+.bullet-container .bullet[hasBullet="true"] {
+  display: block;
+}
+
 .player {
   width: 64px;
   height: 32px;
@@ -101,13 +171,13 @@ body {
 }
 
 .player-sprite[moving="true"] {
-  animation: movement steps(3) infinite 0.5s;
+  animation: animate steps(3) infinite 0.5s;
 }
 
 .player-sprite[shoot="true"] {
   width: 768px;
   height: 129px;
-  animation: movement steps(12) 0.2s;
+  animation: animate steps(12) 0.2s;
 }
 
 .bullet {
@@ -125,10 +195,10 @@ body {
 }
 
 .bullet-sheet[moving="true"] {
-  animation: movement steps(5) infinite 0.5s;
+  animation: animate steps(5) infinite 0.5s;
 }
 
-@keyframes movement {
+@keyframes animate {
   from {
     transform: translateX(0);
   }
