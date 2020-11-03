@@ -78,7 +78,11 @@ function Player(username, num) {
         }
         // if player has fired the bullet
         if(this.usedBullet != null){
-            this.usedBullet.move(this.shootFacing)
+            let moving = this.usedBullet.bullet.querySelector('.bullet-sheet').getAttribute('moving');
+            // only moves the bullet if the bullet is moving
+            if( moving === 'true'){
+                this.usedBullet.move(this.shootFacing)
+            }
         }
         this.camera.moveCamera([this.leftPos, this.topPos])
     }

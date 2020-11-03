@@ -147,10 +147,11 @@ function GameController([player, mazeMap, bullets]){
         this.bullets.forEach((bullet,index)=>{
             const moving = bullet.bullet.querySelector('.bullet-sheet').getAttribute('moving')
             // adds bullet to the players bullet array
-            if(bullet.touchingPlayer(bullet.leftPos, bullet.topPos) && !this.player.hasBullet && moving === 'false'){
+            if(bullet.touchingPlayer(bullet.leftPos, bullet.topPos) && !this.player.hasBullet && moving === 'false' && !bullet.isBeingUsed){
                 this.player.playerBullet.push(bullet)
-                this.player.hasBullet = true
-                this.bullets.splice(index,1)
+                this.player.hasBullet = true;
+                // set the value of being used to true
+                bullet.isBeingUsed = true;
             }
         })
         // assigns the value of top and left to the player x and y coordinates

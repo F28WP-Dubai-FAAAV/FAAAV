@@ -2,6 +2,7 @@ function Bullet(players, mazeMap){
     this.players = players;
     this.mazeMap = mazeMap;
     this.speed = 5;
+    this.isBeingUsed = false;
 
     // creates bullet with the spritesheet and places it randomly on the maze
     this.createBullet = (maze) => {
@@ -28,7 +29,7 @@ function Bullet(players, mazeMap){
     // method to check if the bullet is touching the walls of the maze
     // returns true if the bullet is touching the wall else returns false
     this.touchingWall = (left, top) => {
-        let playerWidth = 15
+        let playerWidth = 5
         let isTouching = false;
         // loops through all the walls and checks if the bullet is in the same place as them
         this.mazeMap.LayerTwo.forEach(wall=>{
@@ -117,14 +118,48 @@ function Bullet(players, mazeMap){
         this.animate()
     }
 
-    // method which will be called the bullet is to be destroyed
+    // resets all the values of the bullet and spawns it in a random position
+    this.reset = () => {
+        this.spawnBullet()
+        // setting position on the maze
+        this.bullet.style.transform = `translate3d(
+            ${this.leftPos-this.bullet.offsetWidth/2}px, 
+            ${this.topPos-this.bullet.offsetHeight/2}px, 
+            0)`
+        const sheet =  this.bullet.querySelector(".bullet-sheet")
+        sheet.setAttribute("moving", "false")
+        sheet.setAttribute("facing", "")
+        this.isBeingUsed = false;
+        this.bullet.style.display = 'block';
+    }
+
+    // method which will be called when the bullet is to be destroyed
     this.destroyBullet = () => {
-        //TODO : complete the function
+        this.bullet.querySelector('.bullet-sheet').setAttribute('moving', 'false')
+        this.bullet.style.display = 'none';
+        this.reset()
     }
 
     // this method updates the position of the bullet on the maze
     this.animate = () => {
         this.bullet.style.transform = `translate3d(${this.leftPos}px, ${this.topPos}px, 0)`
+
+        const moving = this.bullet.querySelector('.bullet-sheet').getAttribute('moving')
+        // if the bullet is touching a wall or 
+        // the outer perimeter of the maze and it is moving then destroy the bullet
+        if(
+            (
+                this.touchingWall(this.leftPos, this.topPos)
+                || (this.leftPos < 80 
+                || this.topPos < 80 
+                || this.leftPos > 720 
+                || this.topPos > 720)
+            ) 
+            && moving === 'true'
+         ){
+            this.destroyBullet();
+        }
+
     }
 }
 
