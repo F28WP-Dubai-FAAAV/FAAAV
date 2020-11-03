@@ -23,7 +23,7 @@ function Bullet(players, mazeMap){
         sheet.classList.add("bullet-sheet")
         sheet.setAttribute("moving", "false")
         sheet.setAttribute("facing", "")
-        sheet.style.background = `url(../Assets/fireball/fireball.png)`
+        sheet.style.background = `url(../Assets/Bullet/fireball.png)`
         this.bullet.appendChild(sheet)
     }
 
