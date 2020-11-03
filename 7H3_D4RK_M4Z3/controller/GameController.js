@@ -150,6 +150,7 @@ function GameController([player, mazeMap, bullets]){
             if(bullet.touchingPlayer(bullet.leftPos, bullet.topPos) && !this.player.hasBullet && moving === 'false' && !bullet.isBeingUsed){
                 this.player.playerBullet.push(bullet)
                 this.player.hasBullet = true;
+                bullet.playerName = this.player.username
                 // set the value of being used to true
                 bullet.isBeingUsed = true;
             }

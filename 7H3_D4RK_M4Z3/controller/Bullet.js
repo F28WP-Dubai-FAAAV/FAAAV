@@ -3,6 +3,7 @@ function Bullet(players, mazeMap){
     this.mazeMap = mazeMap;
     this.speed = 5;
     this.isBeingUsed = false;
+    this.playerName = ""
 
     // creates bullet with the spritesheet and places it randomly on the maze
     this.createBullet = (maze) => {
@@ -29,7 +30,7 @@ function Bullet(players, mazeMap){
     // method to check if the bullet is touching the walls of the maze
     // returns true if the bullet is touching the wall else returns false
     this.touchingWall = (left, top) => {
-        let playerWidth = 5
+        let playerWidth = this.isBeingUsed?5:15;
         let isTouching = false;
         // loops through all the walls and checks if the bullet is in the same place as them
         this.mazeMap.LayerTwo.forEach(wall=>{
@@ -59,6 +60,11 @@ function Bullet(players, mazeMap){
     this.touchingPlayer = (left, top) => {
         let playerWidth = 15
         let isTouching = false;
+        // get the value of moving
+        let moving = 'false'
+        if(this.isBeingUsed){
+            moving = this.bullet.querySelector('.bullet-sheet').getAttribute('moving')
+        }
         // loops through all the players and checks if the bullet is in the same place as them
         this.players.forEach(player=>{
             const x = player.leftPos;
@@ -66,13 +72,21 @@ function Bullet(players, mazeMap){
             let w = 10
             let h = 15
             if(
-                left > x-playerWidth && left < x+w && top>y && top<y+h || 
-                left < x+w+playerWidth && left > x-playerWidth&& top>y && top<y+h|| 
-                top > y-playerWidth && top < y+h && left>x && left<x+w || 
-                top < y+h+playerWidth && top > y-playerWidth && left>x && left<x+w
+                left > x-playerWidth && left < x+w && top>y && top<y+h 
+                || left < x+w+playerWidth && left > x-playerWidth&& top>y && top<y+h
+                || top > y-playerWidth && top < y+h && left>x && left<x+w 
+                || top < y+h+playerWidth && top > y-playerWidth && left>x && left<x+w
             )
             {
-                isTouching = true
+                //checks if the bullet is not touching the player who has fired that bbllet
+                if(player.username !== this.playerName){
+                    isTouching = true
+                    // if the bullet is moving and it collides with a player decrease his health
+                    if(moving === 'true'){
+                        player.decreaseHealth()
+                    }
+                }
+
             }
         })
 
@@ -120,6 +134,8 @@ function Bullet(players, mazeMap){
 
     // resets all the values of the bullet and spawns it in a random position
     this.reset = () => {
+        this.playerName = ""
+        this.isBeingUsed = false;
         this.spawnBullet()
         // setting position on the maze
         this.bullet.style.transform = `translate3d(
@@ -129,7 +145,6 @@ function Bullet(players, mazeMap){
         const sheet =  this.bullet.querySelector(".bullet-sheet")
         sheet.setAttribute("moving", "false")
         sheet.setAttribute("facing", "")
-        this.isBeingUsed = false;
         this.bullet.style.display = 'block';
     }
 
@@ -145,11 +160,12 @@ function Bullet(players, mazeMap){
         this.bullet.style.transform = `translate3d(${this.leftPos}px, ${this.topPos}px, 0)`
 
         const moving = this.bullet.querySelector('.bullet-sheet').getAttribute('moving')
-        // if the bullet is touching a wall or 
+        // if the bullet is touching a wall or touching the players or
         // the outer perimeter of the maze and it is moving then destroy the bullet
         if(
             (
                 this.touchingWall(this.leftPos, this.topPos)
+                || this.touchingPlayer(this.leftPos, this.topPos)
                 || (this.leftPos < 80 
                 || this.topPos < 80 
                 || this.leftPos > 720 

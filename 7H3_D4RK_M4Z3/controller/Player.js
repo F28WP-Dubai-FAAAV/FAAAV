@@ -51,6 +51,19 @@ function Player(username, num) {
         this.camera.setCamera([this.leftPos, this.topPos])
     }
 
+    // players health decreases when hit by bullet
+    this.decreaseHealth = ()=>{
+        this.hearts--;
+        if(this.hearts <= 0){
+            this.destroyPlayer();
+        }
+    }
+
+    // if all the hearts are lost then destroy the players
+    this.destroyPlayer = () => {
+        this.playerDiv.style.display = 'none'
+    }
+
     // if the player shoots the bullet
     this.shootBullet = () => {
         this.hasBullet = false;
