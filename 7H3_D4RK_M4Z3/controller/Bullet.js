@@ -55,10 +55,10 @@ function Bullet(players, mazeMap){
         return isTouching
     }
 
-    // method to check if the bullet is touching the players of the maze
-    // returns true if the bullet is touching the players else returns false
-    this.touchingPlayer = (left, top) => {
-        let playerWidth = 15
+    // method to check if the players is touching the bullets of the maze
+    // returns true if the players is touching the bullets else returns false
+    this.touchingPlayer = (x, y) => {
+        let bulletWidth = 8
         let isTouching = false;
         // get the value of moving
         let moving = 'false'
@@ -67,15 +67,15 @@ function Bullet(players, mazeMap){
         }
         // loops through all the players and checks if the bullet is in the same place as them
         this.players.forEach(player=>{
-            const x = player.leftPos;
-            const y = player.topPos;
-            let w = 10
-            let h = 15
+            const left = player.leftPos
+            const top = player.topPos
+            let w = 20
+            let h = 12
             if(
-                left > x-playerWidth && left < x+w && top>y && top<y+h 
-                || left < x+w+playerWidth && left > x-playerWidth&& top>y && top<y+h
-                || top > y-playerWidth && top < y+h && left>x && left<x+w 
-                || top < y+h+playerWidth && top > y-playerWidth && left>x && left<x+w
+                left > x-bulletWidth && left < x+w && top>y && top<y+h
+                || left < x+w+bulletWidth && left > x-bulletWidth&& top>y && top<y+h
+                || top > y-bulletWidth && top < y+h && left>x && left<x+w 
+                || top < y+h+bulletWidth && top > y-bulletWidth && left>x && left<x+w
             )
             {
                 //checks if the bullet is not touching the player who has fired that bbllet
