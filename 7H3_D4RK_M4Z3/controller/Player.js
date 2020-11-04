@@ -26,6 +26,11 @@ function Player(username, num) {
         this.HUD.classList.add('hud')
         document.querySelector("#canvas").appendChild(this.HUD)
 
+        const username = document.createElement("div")
+        username.classList.add("username")
+        username.innerHTML = `${this.username}`
+        this.HUD.appendChild(username)
+
         // creates a div to stores all the hearts
         const heartContainer = document.createElement('div')
         heartContainer.classList.add('hearts-container')
