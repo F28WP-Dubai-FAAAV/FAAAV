@@ -1,0 +1,131 @@
+:root {
+  --sprite-size: 2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 95vh;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.container-join {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 30rem;
+}
+
+@font-face {
+  font-family: "TheEndFont";
+  src: url("../Assets/fonts/TheEndFont.ttf");
+}
+
+@font-face {
+  font-family: "WorldConflict";
+  src: url("../Assets/fonts/WorldConflict.ttf");
+}
+
+.game-title h1 {
+  font-family: "TheEndFont";
+  font-size: 5rem;
+}
+
+.game-title p {
+  font-family: "WorldConflict";
+  color: #ff0000;
+  font-size: 2rem;
+}
+
+.sprite {
+  width: calc(192px * var(--sprite-size));
+  height: calc(96px * var(--sprite-size));
+  overflow: hidden;
+  position: relative;
+  margin: 1rem;
+  background: radial-gradient(circle, rgb(221, 44, 44), #000 50%);
+}
+
+.pixelart {
+  image-rendering: auto;
+}
+
+.sprite .sheet {
+  position: absolute;
+  width: calc(576px * var(--sprite-size));
+  height: calc(384 * var(--sprite-size));
+  animation: movement steps(3) infinite 0.5s;
+  top: calc(-192px * var(--sprite-size));
+  left: 0;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  font-size: 1.5rem;
+  font-family: "TheEndFont";
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  text-decoration: none;
+}
+
+.btn.signup {
+  color: #000;
+  background: #ebebeb;
+  border: 1px solid #ebebeb;
+}
+
+.btn.signup:hover {
+  color: #fff;
+  background: #000;
+  border: 1px solid #fff;
+}
+
+.btn.login {
+  color: #ff0000;
+  background: #000;
+  border: 1px solid #fff;
+}
+
+.btn.login:hover {
+  color: #000;
+  background: #ac0000;
+  border: 1px solid #ac0000;
+}
+
+@keyframes movement {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
