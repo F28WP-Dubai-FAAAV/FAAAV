@@ -39,9 +39,9 @@
 }
 
 .cr:hover {
-  color: #000;
-  background: #ac0000;
-  border: 1px solid #ac0000;
+  color: rgb(0, 0, 0);
+  background: #a10000;
+  border: 1px solid #a10000;
 }
 
 .jr:hover {
