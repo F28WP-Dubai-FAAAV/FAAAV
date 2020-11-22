@@ -28,5 +28,5 @@ Thriller, Action, Survival, Battle Royal
   ![Main Game Page](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/Main.JPG)
   ![Join Page](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/Join_Page.JPG)
   ![Lobby Page](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/Lobby.JPG)
-  ![Game from the Player's perspective](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/GameScreen.JPG)
+  ![Game from the Player's perspective](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/Lobby.jpg)
 ### Technologies:
