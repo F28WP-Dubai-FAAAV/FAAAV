@@ -1,0 +1,12 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
+        Using the embedded javascript to display The Dark Maze (Head)
+    -->
+    <title>The Dark Maze | <%= title %> </title>  
+    <% styles.forEach(style => { %>
+        <link rel="stylesheet" href='../public/styles/<%= style %>'  >
+    <% }) %>
+    <script src="/socket.io/socket.io.js"></script> <!--socket.io script for dynamic(realtime) webpage-->
+</head>
