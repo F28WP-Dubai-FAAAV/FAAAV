@@ -1,5 +1,6 @@
 //importing 
 const express = require('express')
+const mongoose = require('mongoose')  
 const path = require('path')
 const uuid = require('uuid')
 
@@ -17,8 +18,15 @@ const app = express()
 app.set('views', './client/views')
 app.set('view engine', 'ejs')
 
+const dbURI = `mongodb+srv://abdulkader:test1234@cluster0.xwfst.mongodb.net/TheDarkMaze?retryWrites=true&w=majority`
+
 //creating server
 const server = app.listen(port, ()=>{console.log(`listening at port ${port}`)})
+
+mongoose
+    .connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(()=>{console.log('DataBase Connected')})
+    .catch(err=>{console.log(err)})
 
 //
 app.use(express.static(path.join(__dirname ,'../client')))
@@ -68,5 +76,53 @@ app.get('/loading/:roomId', async (req,res)=>{
     room[0].state = state
     //promises, waits till data is fetched
     await room[0].save()
+})
+
+app.post('/search', async (req,res)=>{
+    let isRoom = true;
+    if('create' in req.body){
+        req.body.roomId = roomIdGenerator()
+        delete req.body.create
+    }
+    else{
+        if(!req.body.roomId){
+            res.redirect("/join/roomId")
+            return;
+        }
+        req.body.roomId = (req.body.roomId).toUpperCase()
+        const roomExists = await Rooms.find({roomId:req.body.roomId}, (req,data)=>{})
+        if(roomExists.length === 0){
+            res.redirect("/join/existance")
+            return
+        }
+        else if(roomExists[0].players.length >= 4){
+            res.redirect("/join/capacity")
+            return
+        }
+
+        if(roomExists[0].isPlaying){
+            res.redirect('/join/started')
+            return
+        }
+
+        isRoom = false;
+        delete req.body.join
+    }
+
+    const player = new Players(req.body)
+    await player.save()
+    let room;
+    if(isRoom){
+        room = {
+            roomId: req.body.roomId,
+            players: [player],
+            isPlaying: false
+        }
+        await createRoom(room)
+    }
+    else{
+        await updateRoom(req.body.roomId, player)
+    }
+    res.redirect(`/lobby/${req.body.roomId}&${player._id}`)
 })
 
