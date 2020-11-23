@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div class="container-join">
+        <div class="forms">
+            <form class="form join-form" action="/search" method="POST">
+                <div class="floating">
+                    <input id="username" type="text" class="floating__input" name="username" placeholder=" " required minlength='3'  maxlength='10' autocomplete="off"/>
+                    <label for="input__username" class="floating__label user-name" data-content="Username">
+                        <span class="hidden--visually">Email</span>
+                    </label>
+                </div>
+
+                <input class="btn create-room-btn" name="create" type="submit" value="Create Room">
+
+                <div class="floating floating-join">
+                    <input id="room" type="text" class="floating__input" name="roomId" placeholder=" " autocomplete="off" autocapitalize="characters"/>
+                    <label for="input__username" class="floating__label user-join" data-content="Room Id">
+                        <span class="hidden--visually">RoomId</span>
+                    </label>
+                </div>
+
+                <input class="btn join-room-btn" name="join" type="submit" value="Join Room">
+            </form>
+        </div>
+    </div>    
+</body>
+<script>
+    switch('<%= error %>'){
+        case 'roomId':
+            alert("roomId is Invalid")
+            break
+        case 'existance' :
+            alert("Room Doesn't Exist")
+            break
+        case 'capacity':
+            alert('Room is full')
+            break
+        case 'started':
+        alert('Game has already Started in that Room!')
+        break
+    }
+</script>
+<script src="../public/javascript/join.js"></script>
+</html>
