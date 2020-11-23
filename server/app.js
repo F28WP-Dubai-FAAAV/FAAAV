@@ -18,11 +18,13 @@ const app = express()
 app.set('views', './client/views')
 app.set('view engine', 'ejs')
 
+//object to connect to database
 const dbURI = `mongodb+srv://abdulkader:test1234@cluster0.xwfst.mongodb.net/TheDarkMaze?retryWrites=true&w=majority`
 
 //creating server
 const server = app.listen(port, ()=>{console.log(`listening at port ${port}`)})
 
+//connection to database
 mongoose
     .connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=>{console.log('DataBase Connected')})
@@ -78,8 +80,10 @@ app.get('/loading/:roomId', async (req,res)=>{
     await room[0].save()
 })
 
+//searching if game is created using asynchronous requests
 app.post('/search', async (req,res)=>{
     let isRoom = true;
+    //roomId existence checks ie capacity existence
     if('create' in req.body){
         req.body.roomId = roomIdGenerator()
         delete req.body.create
