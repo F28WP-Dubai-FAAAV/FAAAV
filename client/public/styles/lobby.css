@@ -1,0 +1,56 @@
+h2 {
+  font-size: 2rem;
+  font-family: "TheEndFont";
+}
+
+#gameId {
+  font-family: sans-serif;
+  color: red;
+  font-weight: normal;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.container {
+  width: 100%;
+}
+
+.players-container {
+  background: #000000cc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 1rem;
+  border-radius: 20px;
+  width: 80%;
+}
+
+.player {
+  background-color: #111;
+  display: flex;
+  border-radius: 20px;
+  font-family: sans-serif;
+  color: #d1d1d1;
+  margin: 0.2rem 0;
+  padding: 1rem 1rem;
+  text-align: center;
+}
+
+.player .avatar {
+  background-size: contain;
+}
+
+.player .username {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.player .username.main {
+  color: red;
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
