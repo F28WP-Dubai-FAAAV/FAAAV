@@ -59,6 +59,8 @@ app.get('/lobby/:roomId&:playerId', async (req,res)=>{
 //routing to the game 
 app.get('/game/:roomId', async (req,res)=>{
     const room = await Rooms.find({roomId:req.params.roomId}, (req,data)=>{})
+    room[0].isPlaying = true
+    await room[0].save()
     //renders the page accordiong to the appropriate parameters
     res.render('game', {title: req.params.roomId, styles:['gameStyle.css']})
 })
