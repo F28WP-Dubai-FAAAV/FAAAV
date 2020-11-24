@@ -1,0 +1,271 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@font-face {
+  font-family: "TheEndFont";
+  src: url("../../Assets/fonts/TheEndFont.ttf");
+}
+
+#canvas {
+  position: relative;
+  transform: scale(1);
+  right: 64px;
+}
+
+.maze {
+  position: relative;
+  width: 800px;
+  height: 800px;
+}
+
+.maze-layer-one {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 800px;
+  z-index: 1;
+}
+
+.tile {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+}
+
+.maze-layer-two {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 800px;
+  z-index: 2;
+}
+
+.wall {
+  position: absolute;
+}
+
+.wall.vertical {
+  width: 35px;
+  height: 80px;
+}
+.wall.horizontal {
+  width: 80px;
+  height: 35px;
+}
+
+.pixelart {
+  image-rendering: auto;
+}
+
+.hud {
+  top: calc(50% - 200px);
+  left: calc(50% - 80px);
+  position: absolute;
+  font-family: "TheEndFont";
+  color: #fff;
+  font-size: 0.8rem;
+  z-index: 100;
+  margin: 0.5rem 0;
+}
+
+.username {
+  position: absolute;
+  font-size: 1.5rem;
+  top: -40px;
+  left: -55px;
+  color: #ff0000;
+}
+
+.hearts-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  transform: scale(2);
+}
+
+.hearts-container::before {
+  content: "Health : ";
+}
+
+.heart {
+  width: 15px;
+  height: 13px;
+  overflow: hidden;
+  margin: 0 0.1rem;
+}
+
+.heart-sprite {
+  width: 105px;
+  height: 13px;
+  position: relative;
+}
+
+.heart {
+  animation: beat 0.8s infinite alternate ease-in-out;
+}
+
+.heart-sprite[fill="empty"] {
+  animation: animate steps(7) 1s forwards;
+}
+
+.bullet-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  transform: scale(2);
+  margin-top: 1.5rem;
+}
+
+.bullet-container::before {
+  content: "Bullet : ";
+}
+
+.bullet-container .bullet {
+  left: 55px;
+  display: none;
+}
+
+.bullet-container .bullet[hasBullet="true"] {
+  display: block;
+}
+
+.player {
+  width: 64px;
+  height: 32px;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 50;
+}
+
+.player-sprite {
+  width: 192px;
+  height: 129px;
+}
+
+.sheet {
+  position: absolute;
+}
+
+.sheet[facing="down"] {
+  top: 0px;
+}
+.sheet[facing="left"] {
+  top: -32px;
+}
+.sheet[facing="right"] {
+  top: -64px;
+}
+.sheet[facing="up"] {
+  top: -96px;
+}
+
+.player-sprite[moving="true"] {
+  animation: animate steps(3) infinite 0.5s;
+}
+
+.player-sprite[shoot="true"] {
+  width: 768px;
+  height: 129px;
+  animation: animate steps(12) 0.2s;
+}
+
+.bullet {
+  position: absolute;
+  z-index: 45;
+  width: 20px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.bullet-sheet {
+  position: absolute;
+  width: 100px;
+  height: 12px;
+}
+
+.bullet-sheet[moving="true"] {
+  animation: animate steps(5) infinite 0.5s;
+}
+
+@keyframes beat {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes animate {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  #canvas {
+    transform: scale(1.5);
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  #canvas {
+    transform: scale(1.7);
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  #canvas {
+    transform: scale(1.7);
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  #canvas {
+    transform: scale(2);
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-height: 550px) {
+  #canvas {
+    transform: scale(1);
+  }
+  .hud {
+    transform: scale(0.8);
+    top: 10%;
+  }
+}
