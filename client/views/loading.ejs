@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs') %> <!--including the head engine file-->
+</head>
+<body>
+    <div class="container">
+        <div class="sprite">
+            <img
+              class="sheet pixelart"
+              src="../Assets/players/main_hero.gif"
+              alt="adventurer spritesheet"
+            />
+          </div>
+        <div class="game-title">
+          <h1>Loading...</h1>
+          <p>Game will be starting soon</p>
+        </div>
+      </div>
+</body>
+<script>
+  //timeout for processing the backend
+    setTimeout(()=>{
+        window.location.href = `/game/<%= title  %> `
+    },1000)
+</script>
+
+</html>
