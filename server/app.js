@@ -30,7 +30,7 @@ mongoose
     .then(()=>{console.log('DataBase Connected')})
     .catch(err=>{console.log(err)})
 
-//
+//fetching data from the specific path
 app.use(express.static(path.join(__dirname ,'../client')))
 //using express to fetch json object
 app.use(express.json())
