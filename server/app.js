@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const path = require('path')
 const uuid = require('uuid')
 const http = require('http');
-const httpServer = http.createServer(app);
 //storing path (for models/schema)
 const Players = require('./models/players')
 const Rooms = require('./models/rooms')
