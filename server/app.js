@@ -3,7 +3,8 @@ const express = require('express')
 const mongoose = require('mongoose')  
 const path = require('path')
 const uuid = require('uuid')
-
+const http = require('http');
+const httpServer = http.createServer(app);
 //storing path (for models/schema)
 const Players = require('./models/players')
 const Rooms = require('./models/rooms')
@@ -13,7 +14,7 @@ const port = process.env.PORT || 3000
 
 //initialising express
 const app = express()
-
+const httpServer = http.createServer(app);
 //setting view engine embedded javaScript(ejs)
 app.set('views', './client/views')
 app.set('view engine', 'ejs')
