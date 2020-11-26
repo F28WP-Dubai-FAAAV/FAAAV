@@ -18,6 +18,8 @@ A Team of <em>College Students</em> developing a game in javascript.
 Thriller, Action, Survival, Battle Royal
 
 ### Description:
+Implementation of realtime multiplayer maze game.
+
 #### Multiplayer -
   Four Players are spawned at different locations on the map and their goal is to eliminate the other players.
   <br>
@@ -30,3 +32,9 @@ Thriller, Action, Survival, Battle Royal
   ![Lobby Page](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/Lobby.jpg)
   ![Game from the Player's perspective](https://github.com/F28WP-Dubai-FAAAV/FAAAV/blob/master/mockups/GameScreen.JPG)
 ### Technologies:
+  Node.js
+  Express
+  MongoDb
+  Socket.io
+### YouTube Trailer:
+https://www.youtube.com/watch?feature=youtu.be&v=HnLx1dNr0AA&app=desktop
