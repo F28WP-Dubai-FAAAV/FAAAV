@@ -1,1 +1,1 @@
-export const IP = `http://10.5.0.38:3000`
+export const IP = `https://thedarkmaze.herokuapp.com`
