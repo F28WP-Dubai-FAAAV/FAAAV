@@ -38,3 +38,7 @@ Implementation of realtime multiplayer maze game.
   Socket.io
 ### YouTube Trailer:
 https://www.youtube.com/watch?feature=youtu.be&v=HnLx1dNr0AA&app=desktop
+
+### BUGS:
+Bullet not synchronized for realtime multiplayer(socket.io implementation bug) 
+Bullet spawning at different location is an issue(socket.io implementation bug)
