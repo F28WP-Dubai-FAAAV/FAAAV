@@ -20,6 +20,10 @@ socket.on('connect', ()=>{
     socket.emit('join', RoomId)
 })
 
+socket.on('disconnect', ()=>{
+    sessionStorage.clear()
+})
+
 socket.on('player_joined', (room)=>{
     if(room){
         roomInfo = JSON.stringify(room[0])
