@@ -13,6 +13,7 @@ A Team of <em>College Students</em> developing a game in javascript.
 - Abdul Kader Nimbaherawala
 
 ## Game Title: 7H3 D4RK M4Z3
+http://thedarkmaze.herokuapp.com/
 
 ### Genre:
 Thriller, Action, Survival, Battle Royal
@@ -40,5 +41,6 @@ Implementation of realtime multiplayer maze game.
 https://www.youtube.com/watch?feature=youtu.be&v=HnLx1dNr0AA&app=desktop
 
 ### BUGS:
-Bullet not synchronized for realtime multiplayer(socket.io implementation bug) 
+Bullet not synchronized for realtime multiplayer(socket.io implementation bug)
+<br>
 Bullet spawning at different location is an issue(socket.io implementation bug)
