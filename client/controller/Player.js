@@ -19,6 +19,7 @@ function Player(username, num, isMain) {
     this.playerBullet = []
     // playerDiv
     this.playerDiv = null;
+    this.isShoot = false
 
     // Creates a HUD with hearts and bullet info
     this.createHUD = () => {
@@ -109,7 +110,6 @@ function Player(username, num, isMain) {
 
     // players health decreases when hit by bullet
     this.decreaseHealth = ()=>{
-        // TODO: socket to update player health
         if(this.isMain){
             // animating the loss of heart
             const hearts = this.HUD.querySelectorAll('.heart-sprite')
@@ -119,8 +119,8 @@ function Player(username, num, isMain) {
         this.hearts--;
         // destroy player if hearts is 0
         if(this.hearts <= 0){
-            // TODO: socket to destroy player and update other players screens
-            this.destroyPlayer();
+            this.destroyPlayer()
+            window.location.href = '/gameover'
         }
     }
 
@@ -131,8 +131,11 @@ function Player(username, num, isMain) {
 
     // if the player shoots the bullet
     this.shootBullet = () => {
+        this.isShoot = false
         this.hasBullet = false;
-        this.HUD.querySelector(".bullet").setAttribute('hasBullet', 'false')
+        if(isMain){
+            this.HUD.querySelector(".bullet").setAttribute('hasBullet', 'false')
+        }
         this.playerBullet[0].bullet.classList.remove('hide')
         // starts the bullet animation
         this.playerBullet[0].bullet.querySelector(".bullet-sheet").setAttribute("moving", true)
@@ -144,7 +147,7 @@ function Player(username, num, isMain) {
     }
 
     //this method will move the player on the screen
-    this.animate = ()=>{
+    this.animate = async ()=>{
         const maze = document.querySelector('.maze');
         // top and left are center position of the player div
         let top = this.topPos - this.playerDiv.offsetHeight/2
@@ -160,11 +163,25 @@ function Player(username, num, isMain) {
             this.playerDiv.style.top = top + 'px'
         }
         
+        //checks if the player has shot the bullet
+        if(this.isShoot){
+            this.shootBullet()
+        }
+
         // if player has obtained a bullet then the bullet will stick to the
         // player until the bullet is fired
         if(this.playerBullet.length > 0 && this.hasBullet){
-            this.playerBullet[0].leftPos = -(left+ this.playerDiv.offsetWidth/2- this.playerBullet[0].bullet.offsetWidth/2)+442
-            this.playerBullet[0].topPos = -(top+ this.playerDiv.offsetHeight/2- this.playerBullet[0].bullet.offsetHeight/2)+422
+            let lp = (left+ this.playerDiv.offsetWidth/2- this.playerBullet[0].bullet.offsetWidth/2)
+            let tp = (top+ this.playerDiv.offsetHeight/2- this.playerBullet[0].bullet.offsetHeight/2)
+
+            if(isMain){
+                this.playerBullet[0].leftPos = -lp + 442
+                this.playerBullet[0].topPos = -tp + 422
+            }
+            else{
+                this.playerBullet[0].leftPos = lp
+                this.playerBullet[0].topPos = tp
+            }
             this.playerBullet[0].animate()
         }
 
@@ -177,7 +194,7 @@ function Player(username, num, isMain) {
             }
         }
 
-        if(this.hasBullet){
+        if(this.hasBullet && isMain){
             this.HUD.querySelector(".bullet").setAttribute('hasBullet', 'true')
         }
     }

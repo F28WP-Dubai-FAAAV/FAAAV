@@ -77,7 +77,7 @@ function GameController([player, mazeMap, bullets]){
                 // starts player's shooting  animation if he has a bullet
                 if(this.player.hasBullet){
                     this.player.playerDiv.querySelector(".player-sprite").setAttribute("shoot", "true")
-                    this.player.shootBullet()
+                    this.player.isShoot = true
                 }
             }
             else{

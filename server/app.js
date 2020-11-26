@@ -1,91 +1,88 @@
-//importing 
 const express = require('express')
-const mongoose = require('mongoose')  
+const mongoose = require('mongoose')
 const path = require('path')
 const uuid = require('uuid')
-const http = require('http');
-//storing path (for models/schema)
+
 const Players = require('./models/players')
 const Rooms = require('./models/rooms')
 
-//port 
+const State = []
+
 const port = process.env.PORT || 3000
 
-//initialising express
 const app = express()
-const httpServer = http.createServer(app);
-//setting view engine embedded javaScript(ejs)
+
 app.set('views', './client/views')
 app.set('view engine', 'ejs')
 
-//object to connect to database
 const dbURI = `mongodb+srv://abdulkader:test1234@cluster0.xwfst.mongodb.net/TheDarkMaze?retryWrites=true&w=majority`
 
-//creating server
 const server = app.listen(port, ()=>{console.log(`listening at port ${port}`)})
 
-//connection to database
 mongoose
     .connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=>{console.log('DataBase Connected')})
     .catch(err=>{console.log(err)})
 
-//fetching data from the specific path
 app.use(express.static(path.join(__dirname ,'../client')))
-//using express to fetch json object
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-//routing (main page)
 app.get('/', (req,res)=>{
-    //renders the page accordiong to the appropriate parameters
     res.render("index", { title: "Main", styles:['styles.css']});
 })
 
-//routing (join page) 
-//:error? sanity check
 app.get('/join/:error?', (req,res)=>{
     res.render("join", { title: "Join", styles:['styles.css', 'join.css'], error: req.params.error});
 })
 
-//routing for lobby using promises, setting up the lobby according to rooms/players id
+app.get('/gameover', (req,res)=>{
+    res.render("gameover", { title: "GameOver", styles:['styles.css'], error: req.params.error});
+})
+
+app.get('/victory', (req,res)=>{
+    res.render("victory", { title: "Victory", styles:['styles.css'], error: req.params.error});
+})
+
 app.get('/lobby/:roomId&:playerId', async (req,res)=>{
-    //finds room using room id, and sends it back using promises
     const room = await Rooms.find({roomId: req.params.roomId }, (req,data)=>{})
-    //renders the page accordiong to the appropriate parameters
     res.render("lobby", { title: "Lobby", styles:['styles.css', 'lobby.css'], room:room, playerId: req.params.playerId});
 })
 
-//routing to the game 
 app.get('/game/:roomId', async (req,res)=>{
     const room = await Rooms.find({roomId:req.params.roomId}, (req,data)=>{})
     room[0].isPlaying = true
     await room[0].save()
-    //renders the page accordiong to the appropriate parameters
     res.render('game', {title: req.params.roomId, styles:['gameStyle.css']})
 })
 
-//routing (loading page)
 app.get('/loading/:roomId', async (req,res)=>{
-    //renders the loading page
     res.render('loading', {title: req.params.roomId, styles:['styles.css']})
-    //sets the position of the players 
-    const pos= [[120,120], [680, 120], [120,680], [680,680] ]
+    const spawnPos= [[120,120], [680, 120], [120,680], [680,680] ]
     const room = await Rooms.find({roomId:req.params.roomId}, (req,data)=>{})
-    //players state
-    const state = {}
+    const stateInfo = {
+        roomId:req.params.roomId,
+        state:{},
+    }
+
     room[0].players.forEach((player,index)=>{
-        state[index+1] = { pos: pos[index]}
+        stateInfo.state[index+1] = { 
+            pos: spawnPos[index], 
+            direction: {facing:'', moving:'', shoot:''},
+            bullets: [],
+            bulletInfo: {
+                hasBullet:false,
+                playerBullet: -1,
+                isShoot: false
+            }
+        }
     })
-    room[0].state = state
-    //promises, waits till data is fetched
-    await room[0].save()
+
+    State.push(stateInfo)
 })
 
-//searching if game is created using asynchronous requests
 app.post('/search', async (req,res)=>{
     let isRoom = true;
-    //roomId existence checks ie capacity existence
     if('create' in req.body){
         req.body.roomId = roomIdGenerator()
         delete req.body.create
@@ -132,3 +129,57 @@ app.post('/search', async (req,res)=>{
     res.redirect(`/lobby/${req.body.roomId}&${player._id}`)
 })
 
+const createRoom = async (room) => {
+    const rooms = new Rooms(room)
+    await rooms.save().then().catch(err=> console.log(err))
+}
+
+const roomIdGenerator = ()=>{
+    const roomId = uuid.v4().split('-')[0].toUpperCase()
+    return roomId
+}
+
+const updateRoom = async (roomId, player)=>{
+    const updatedRoom = await Rooms.find({roomId: roomId}, (req,data)=>{})
+    updatedRoom[0].players = [...updatedRoom[0].players, player]
+    await updatedRoom[0].save()
+}
+
+app.use((req, res) => {
+    res.render("404", { title: "404", styles:['styles.css', '404.css'] });
+});
+
+const io = require('socket.io')(server)
+
+
+io.sockets.on('connection', (socket)=>{
+    socket.on('join', (roomId)=>{
+        socket.join(roomId)
+    })
+
+    socket.on('join_room',async (roomId)=>{
+        await setTimeout(async ()=>{
+            const room = await Rooms.find({roomId: roomId }, ()=>{})
+            io.in(roomId).emit('player_joined',room)
+        },1000)
+    })
+
+    socket.on('game_starting', (roomId)=>{
+        io.in(roomId).emit('start_game', roomId)
+    })
+
+    socket.on('get_state', async (roomId)=>{
+        const stateInfo = State.filter(info=> info.roomId == roomId)
+        io.in(roomId).emit('set_state', stateInfo[0].state)
+    })
+
+    socket.on('update_state', async (roomId, state)=>{
+        State.filter(info=> {
+            if(info.roomId == roomId){
+                info.state = state
+            }
+        })
+        const stateInfo = State.filter(info=>info.roomId == roomId)
+        io.in(roomId).emit('set_state', stateInfo[0].state)
+    })
+})

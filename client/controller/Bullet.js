@@ -1,13 +1,20 @@
-function Bullet(players, mazeMap){
+function Bullet(players, mazeMap, num){
     this.players = players;
     this.mazeMap = mazeMap;
     this.speed = 5;
     this.isBeingUsed = false;
     this.playerName = ""
-
+    this.bulletNum = num
+    
     // creates bullet with the spritesheet and places it randomly on the maze
-    this.createBullet = (maze) => {
-        this.spawnBullet();
+    this.createBullet = (maze, pos) => {
+        if(!pos){
+            this.spawnBullet();
+        }
+        else{
+            this.leftPos = pos.left
+            this.topPos = pos.top
+        }
         // creates a div to store the div with spritesheet
         this.bullet = document.createElement('div')
         this.bullet.classList.add("bullet")
@@ -98,8 +105,7 @@ function Bullet(players, mazeMap){
                     || top < y+h+bulletWidth && top > y-bulletWidth && left>x && left<x+w
                 )
                 {
-                    console.log('hit')
-                    //checks if the bullet is not touching the player who has fired that bbllet
+                    //checks if the bullet is not touching the player who has fired that bullet
                     if(player.username !== this.playerName){
                         isTouching = true
                         // if the bullet is moving and it collides with a player decrease his health
@@ -121,8 +127,8 @@ function Bullet(players, mazeMap){
         let top, left;
         // checks if the values of top and left dont overlap the walls and the players on the maze
         do{
-            top = Math.floor((Math.random()*630))+85;
-            left = Math.floor((Math.random()*630))+85;
+            top = Math.floor((Math.random()*635))+85;
+            left = Math.floor((Math.random()*635))+85;
             uniqueLoc = true;
             if(this.touchingWall(left, top) || this.touchingPlayer(left, top)){
                 uniqueLoc = false;
@@ -196,8 +202,8 @@ function Bullet(players, mazeMap){
             && moving === 'true'
          ){
             this.destroyBullet();
+            console.log('bullet des')
         }
-
     }
 }
 

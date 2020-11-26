@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-//partials to be implemented
+<%- include('./partials/head.ejs') %> 
 <body>
     <div class="container-join">
         <div class="forms">
@@ -27,7 +27,6 @@
     </div>    
 </body>
 <script>
-    //error handling
     switch('<%= error %>'){
         case 'roomId':
             alert("roomId is Invalid")
@@ -43,5 +42,5 @@
         break
     }
 </script>
-<script src="../public/javascript/join.js"></script>
+<script type="module" src="../public/javascript/join.js"></script>
 </html>

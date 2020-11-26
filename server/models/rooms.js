@@ -1,8 +1,6 @@
-//Schema of rooms
-const mongoose = require("mongoose"); //mongoose object
-const Schema = mongoose.Schema; //schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-//Schema of the Data
 const roomsSchema = new Schema(
   {
     roomId:{
@@ -16,13 +14,10 @@ const roomsSchema = new Schema(
     isPlaying:{
       type: Boolean,
       required: true
-    },
-    state:{
-      type: Object
     }
   }
 );
 
-const Rooms = mongoose.model("Rooms", roomsSchema); //model of the rooms
+const Rooms = mongoose.model("Rooms", roomsSchema);
 
-module.exports = Rooms; //module assignment
+module.exports = Rooms;

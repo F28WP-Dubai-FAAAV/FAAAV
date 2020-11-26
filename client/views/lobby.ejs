@@ -4,19 +4,16 @@
 <body>
     <div class="container">
         <h2>Lobby </h2>
-        <h3 id='gameId'>ID : <span><%= room[0].roomId %> </span></h3> 
+        <h3 id='gameId'>ID : <span><%= room[0].roomId %> </span></h3>
         <div class="players-container"></div>
     </div> 
     <div class="start-btn"></div>
 </body>
 <script>
-    //JSON object roomInfo converted to string
-    let roomInfo = `<%- JSON.stringify(room[0]) %>`  
-    //JSON object mainPlayer converted to string          
-    let mainPlayer = `<%- JSON.stringify(room[0].players.filter((player)=>player._id==playerId)[0]) %>` 
-    //session storage started
+    let roomInfo = `<%- JSON.stringify(room[0]) %>`
+    let mainPlayer = `<%- JSON.stringify(room[0].players.filter((player)=>player._id==playerId)[0]) %>`
     sessionStorage.setItem('room', roomInfo)
     sessionStorage.setItem('mainPlayer', mainPlayer)
 </script>
-<script src="../public/javascript/lobby.js"></script>
+<script type="module" src="../public/javascript/lobby.js"></script>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('./partials/head.ejs') %> <!--including the head engine file-->
+    <%- include('./partials/head.ejs') %> 
 </head>
 <body>
     <div class="container">
@@ -21,7 +21,7 @@
       </div>
 </body>
 <script>
-  //timeout for processing the backend
+    const image = document.querySelector('.sheet')
     setTimeout(()=>{
         window.location.href = `/game/<%= title  %> `
     },1000)

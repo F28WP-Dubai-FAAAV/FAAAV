@@ -10,7 +10,6 @@ function Camera (maze){
         // the maze is clipped to make the viewport a circle
         this.maze.style.clipPath = `circle(${this.radius}% at ${left}px ${top}px)`
     }
-
 }
 
 export default Camera
