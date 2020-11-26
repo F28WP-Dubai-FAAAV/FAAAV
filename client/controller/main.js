@@ -13,8 +13,12 @@ let state = null
 
 const bgSound = document.querySelector('.bg-sound')
 
+let isBgPlaying = true
 const repeat = ()=> {
-  bgSound.play()
+  let promise = bgSound.player
+  if(promise){
+    promise.catch(err=>console.log(err))
+  }
 }
 
 const start = ()=> {
@@ -24,7 +28,9 @@ const start = ()=> {
   }, interval)
 }
 
-start()
+if(isBgPlaying){
+  start()
+}
 
 socket.on('connect', ()=>{
   socket.emit('join', RoomId)
@@ -113,6 +119,7 @@ const init = ()=>{
     elapsed = now - then
     if(elapsed > fpsInterval){
       then = now - (elapsed % fpsInterval)
+
       if(players.length <= 1){
         window.location.href = '/victory'
       }
@@ -121,6 +128,11 @@ const init = ()=>{
         if(!player.isMain){
           changeState(player, index+1)
         }
+
+        if(player.destroyed){
+          players.splice(index, 1)
+        }
+
         player.animate()
       })
       
@@ -136,7 +148,7 @@ const init = ()=>{
         }
         isBulletsCreated = true
       }
-      bullets.forEach(bullet=>{
+      bullets.forEach((bullet,index)=>{
         bullet.animate()
       })
     }

@@ -20,6 +20,7 @@ function Player(username, num, isMain) {
     // playerDiv
     this.playerDiv = null;
     this.isShoot = false
+    this.destroyed = false
 
     // Creates a HUD with hearts and bullet info
     this.createHUD = () => {
@@ -126,6 +127,7 @@ function Player(username, num, isMain) {
 
     // if all the hearts are lost then destroy the players
     this.destroyPlayer = () => {
+        this.destroyed = true
         this.playerDiv.style.display = 'none'
     }
 
@@ -173,6 +175,10 @@ function Player(username, num, isMain) {
         if(this.playerBullet.length > 0 && this.hasBullet){
             let lp = (left+ this.playerDiv.offsetWidth/2- this.playerBullet[0].bullet.offsetWidth/2)
             let tp = (top+ this.playerDiv.offsetHeight/2- this.playerBullet[0].bullet.offsetHeight/2)
+
+            if(!this.playerBullet[0].bullet.classList.contains('hide')){
+                this.playerBullet[0].bullet.classList.add('hide')
+            }
 
             if(isMain){
                 this.playerBullet[0].leftPos = -lp + 442

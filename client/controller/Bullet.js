@@ -127,8 +127,8 @@ function Bullet(players, mazeMap, num){
         let top, left;
         // checks if the values of top and left dont overlap the walls and the players on the maze
         do{
-            top = Math.floor((Math.random()*635))+85;
-            left = Math.floor((Math.random()*635))+85;
+            top = Math.floor((Math.random()*625))+85;
+            left = Math.floor((Math.random()*625))+85;
             uniqueLoc = true;
             if(this.touchingWall(left, top) || this.touchingPlayer(left, top)){
                 uniqueLoc = false;
@@ -202,7 +202,6 @@ function Bullet(players, mazeMap, num){
             && moving === 'true'
          ){
             this.destroyBullet();
-            console.log('bullet des')
         }
     }
 }
