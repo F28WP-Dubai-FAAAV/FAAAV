@@ -11,6 +11,21 @@ const isHost = sessionStorage.getItem('isHost')==='true'?true:false
 
 let state = null
 
+const bgSound = document.querySelector('.bg-sound')
+
+const repeat = ()=> {
+  bgSound.play()
+}
+
+const start = ()=> {
+  const interval = (60 / 150) * 1000;
+  setInterval(() => {
+      repeat();
+  }, interval)
+}
+
+start()
+
 socket.on('connect', ()=>{
   socket.emit('join', RoomId)
   socket.emit('get_state', RoomId)
