@@ -145,10 +145,6 @@ const updateRoom = async (roomId, player)=>{
     await updatedRoom[0].save()
 }
 
-app.use((req, res) => {
-    res.render("404", { title: "404", styles:['styles.css', '404.css'] });
-});
-
 const io = require('socket.io')(server)
 
 
@@ -183,3 +179,8 @@ io.sockets.on('connection', (socket)=>{
         io.in(roomId).emit('set_state', stateInfo[0].state)
     })
 })
+
+
+app.use((req, res) => {
+    res.render("404", { title: "404", styles:['styles.css', '404.css'] });
+});
