@@ -21,6 +21,10 @@ Thriller, Action, Survival, Battle Royal
 ### Description:
 Implementation of realtime multiplayer maze game.
 
+### Controls:
+- Movement: Arrow Keys
+- Shoot: SpaceBar
+
 #### Multiplayer -
   Four Players are spawned at different locations on the map and their goal is to eliminate the other players.
   <br>
